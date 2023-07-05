@@ -26,12 +26,12 @@ export default NextAuth({
           throw new Error("Username-Or-Password-Is-Incorrect")
         }
 
-        if (data.user.status === false) {
+        if (data.user.recordstatus === false) {
           throw new Error("Username-Is-Baned")
         }
 
         if (data) {
-          return data;
+          return data.user;
         }
 
 
@@ -50,13 +50,15 @@ export default NextAuth({
       // Persist the OAuth access_token to the token right after signin
       if (user) {
         token.accessToken = user.accessToken
-        token.user = user.user
-        token.roleid = user.user.roleid
+        token.user = user
+        token.roleId = user.roleId
+        token.id =user.userid
       }
       return token
     },
     async session({ session, token }) {
       session.user = token.user
+      session.user.id = token.id
       return session
     },
 

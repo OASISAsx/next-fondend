@@ -34,15 +34,15 @@ export default function Login() {
         )
         : (
 
-          <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-            <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+          <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 ">
+            <div className="sm:mx-auto sm:w-full sm:max-w-sm ">
               {/* <img
                 className="mx-auto h-auto w-auto"
                 src="Images/logo.png"
                 alt="Morlam Ticket"
               /> */}
-              <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white">
-                Sign in to your account
+              <h2 className="mt-1 text-center text-2xl font-bold leading-9 tracking-tight text-black ">
+                เข้าสู่ระบบเพื่อใช้งาน
               </h2>
             </div>
 
@@ -50,7 +50,7 @@ export default function Login() {
             <div className="mt-4 sm:mx-auto sm:w-full sm:max-w-sm">
               <form className="space-y-6" action="#" method="POST" onSubmit={handleSubmit}>
                 <div>
-                  <label htmlFor="username" className="block text-sm font-medium leading-6 text-white">
+                  <label htmlFor="username" className="block text-sm font-medium leading-6 text-black">
                     Username
                   </label>
                   <div className="mt-2">
@@ -69,7 +69,7 @@ export default function Login() {
 
                 <div>
                   <div className="flex items-center justify-between">
-                    <label htmlFor="password" className="block text-sm font-medium leading-6 text-white">
+                    <label htmlFor="password" className="block text-sm font-medium leading-6 text-black">
                       Password
                     </label>
                     {/* <div className="text-sm">
@@ -97,14 +97,14 @@ export default function Login() {
                     type="submit"
                     className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                   >
-                    Sign in
+                    เข้าสู่ระบบ
                   </button>
                 </div>
               </form>
+              <p className="mt-10 text-center text-sm text-gray-800">
+                ยังไม่มีบัญชี สมัครเข้าใช้งาน?{' '}</p>
               <p className="mt-10 text-center text-sm text-gray-500">
-                Don't have an account?{' '}</p>
-              <p className="mt-10 text-center text-sm text-gray-500">
-                <Link href="/register" className="w-full bg-green-400 mt-8 mb-4 text-white p-3 rounded-sm font-semibold text-sm">Create New Account</Link>
+                <Link href="/register" className="w-full bg-green-500 mt-8 mb-4 text-white p-3 rounded-sm font-semibold text-sm">สร้างบัญชีใหม่</Link>
               </p>
             </div>
           </div>

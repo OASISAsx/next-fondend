@@ -1,10 +1,11 @@
+import Homepage from '@/components/Homepage'
 import React from 'react'
-import HomePage from './Homepage'
+
 
 const Home = () => {
   return (
     <>
-    <HomePage/>
+    <Homepage/>
     </>
   )
 }
