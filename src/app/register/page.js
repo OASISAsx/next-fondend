@@ -24,13 +24,19 @@ const register = () => {
 
           // e.preventDefaulf()
           await axios.post(api+"register",fromData  )
-          .then((res)=>{
-              console.log(res)
-           
-                
+          .then(async (res)=>{
+              console.log(res.data.userid)
+              
+             const userdetail= await axios.post(api+"userdetail",{userid:res.data.userid})
+              .then((res)=>{
+                console.log(res)
+
+              })
+              
             }).catch(err=>{
                 console.log(err=> console.log(err))
-            }),
+              })
+              
             Swal.fire({
               icon:"success",
               title:"เสร็จสิ้น",
@@ -38,8 +44,8 @@ const register = () => {
             }).then(()=>{
               window.location.replace('/')
             })
-        }
-
+          }
+            
 
 
       })

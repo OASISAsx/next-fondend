@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import Link from 'next/link'
+import { FiTrash } from "react-icons/fi";
 
 
 
@@ -127,9 +128,10 @@ const managepage = () => {
                   </td>
 
                   <td >
-
-                    <i onClick={() => handleDelete(item.userid)}
-                      className="sm:ml-9 bi bi-trash3-fill text-danger-600"></i>
+                  <button className="iconTrash ml-8">
+                     <FiTrash className="w-6 h-6 " onClick={() => handleDelete(item.userid)}/> 
+                       
+                      </button>
                   </td>
 
 
