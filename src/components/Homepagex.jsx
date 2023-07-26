@@ -86,16 +86,16 @@ const Homepagex = ({ }) => {
                       <img className=" product-img" src={item.productimages} />
                       <div>
 
-                        <p className="font-bold text-xl  text-primary " align="LEFT" valign="top" style={{ fontSize: '1.2vw ' }}>{item.productname}</p>
-                        <tr className="pull-right">
-                          <td className="font-bold text-xl  text-primary " style={{ fontSize: '1.0vw ' }}  >{item.productstock}ชิ้น</td>
+                        <div className="font-bold text-xl  text-primary my-3" align="LEFT" valign="top" style={{ fontSize: '1.2vw ' }}>{item.productname}</div>
+                        <div className="pull-right">
+                          <div className="font-bold text-xl  text-primary " style={{ fontSize: '1.0vw ' }}  >{item.productstock}ชิ้น</div>
 
 
-                          <td className="font-bold text-l text-primary  " >
+                          <div className="font-bold text-l text-primary  " >
                             {item.productprice}฿
 
-                          </td>
-                        </tr>
+                          </div>
+                        </div>
                       </div>
                     </Link>
 

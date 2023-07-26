@@ -197,7 +197,7 @@ const editing = () => {
 
   }
 
-  const type = [{ value: "รองเท้า" }, { value: "เครื่องประดับ" }, { value: "ฟิกเกอร์" }, { value: "ของโบราณ" }, { value: "อื่นๆ" }]
+  const type = [{ defaultvalue: "ประเภทสินค้า" },{ value: "รองเท้า" }, { value: "เครื่องประดับ" }, { value: "ฟิกเกอร์" }, { value: "ของโบราณ" }, { value: "อื่นๆ" }]
   return (
     <>
 

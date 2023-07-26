@@ -2,57 +2,61 @@ import { useSession } from 'next-auth/react';
 import React, { useEffect, useState } from 'react'
 import Modal from './Modal';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 const Productpopup = ({ isOpen, onClose, product }) => {
-    if (!isOpen) return null;
-    
-    const { data: session } = useSession()
-    const [isOpene, setIsOpene] = useState(false);
-    const [message, setMessage] = useState("");
-    const api = process.env.API_ENDPOINT;
-    
-   
-    const addToCart = async () => {
-      if (!session) {
-        setIsOpene(true);
-        setMessage("กรุณาเข้าสู่ระบบก่อนสั่งซื่อสินค้า");
-        return;
-      }
-  
-      try {
-        const Data = JSON.stringify({
-          userid: session.user?.userid,
-          productid: product.productid,
-          productname: product.productname,
-          productimages: product.productimages,
-          producttype: product.producttype,
-          productpice: product.productprice,
-          productstock: product.productstock,
-          
-        });
-        
-  
-        
-  
-        const response = await axios.post(api+'cart', Data);
+  if (!isOpen) return null;
+
+  const { data: session } = useSession()
+  const [isOpene, setIsOpene] = useState(false);
+  const [message, setMessage] = useState("");
+  const api = process.env.API_ENDPOINT;
+
+
+  const addToCart = async () => {
+    if (!session) {
+      setIsOpene(true);
+      setMessage("กรุณาเข้าสู่ระบบก่อนสั่งซื่อสินค้า");
+      return;
+    }
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: 'เพิ่มสินค้าในตระกร้าสำเร็จ',
+      showConfirmButton: false,
+      timer: 1500
+    })
+    try {
+      const Data = JSON.stringify({
+        userid: session.user?.userid,
+        productid: product.productid,
+        productname: product.productname,
+        productimages: product.productimages,
+        productdesc: product.productdesc,
+        producttype: product.producttype,
+        productpice: product.productprice,
+        productstock: product.productstock,
+
+      });
+      const response = await axios.post(api + 'cart', Data);
       // อัปเดต state หรือ context API เพื่อเก็บข้อมูลที่ผู้ใช้เลือกไว้ในตะกร้า
 
       console.log(response.data); // ตอบกลับจาก API (ข้อมูลตะกร้าที่อัปเดต)
     } catch (error) {
       console.error(error);
     }
-    
+
   };
- 
-  
-    return (
-        <div className='modal-portal  fixed top-0 left-0 w-screen h-screen bg-black/50 bg-opacity-25 flex justify-center items-center backdrop-blur-sm  '>
-            <div className="relative  w-[80%] h-[80%]   rounded-lg  ">
-            <section className="text-gray-700 body-font overflow-hidden bg-white  justify-between pop">
-        <div className="container px-4 py-10 mx-auto">
-          <div className="lg:w-4/5 mx-auto flex flex-wrap mt-10">
-            <img alt="ecommerce" className=" h-80 object-contain object-center rounded border border-gray-200" src={product.productimages} />
-            
+
+
+  return (
+    <div className='modal-portal  fixed top-0 left-0 w-screen h-screen bg-black/50 bg-opacity-25 flex justify-center items-center backdrop-blur-sm  '>
+      <div className="relative  w-[80%] h-[80%]   rounded-lg  ">
+        <section className="text-gray-700 body-font overflow-hidden bg-white  justify-between pop">
+          <div className="container px-4 py-10 mx-auto">
+            <div className="lg:w-4/5 mx-auto flex flex-wrap mt-10">
+              <img alt="ecommerce" className=" h-80 object-contain object-center rounded border border-gray-200" src={product.productimages} />
+
               <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
                 <h2 className="text-sm title-font text-gray-500 tracking-widest">{product.producttype}</h2>
                 <h1 className="text-gray-900 text-3xl title-font font-medium mb-1 ">{product.productname}</h1>
@@ -94,19 +98,19 @@ const Productpopup = ({ isOpen, onClose, product }) => {
                   </span>
                 </div>
                 <p className="leading-relaxed">{product.productdesc}</p>
-              
+
                 <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5">
                   <div className="flex">
                     <span className="mr-3">เหลือ</span>
-                    <div className=" rounded-full w-6 h-6 focus:outline-none" >{product.productstock}ชิ้น<div/>
-                    
+                    <div className=" rounded-full w-6 h-6 focus:outline-none" >{product.productstock}ชิ้น<div />
+
                     </div>
-                    </div>
+                  </div>
                 </div>
                 <div className="flex">
                   <span className="title-font font-medium text-2xl text-gray-900">{product.productprice}฿</span>
                   <button className="flex ml-auto text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
-                  onClick={addToCart}>
+                    onClick={addToCart} >
                     สั่งซื้อ</button>
                   <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
                     <svg fill="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} className="w-5 h-5" viewBox="0 0 24 24">
@@ -115,17 +119,17 @@ const Productpopup = ({ isOpen, onClose, product }) => {
                   </button>
                 </div>
               </div>
-          </div>
-        </div>
-        <Modal isOpen={isOpene} setIsOpen={setIsOpene} message={message} />
-      </section>
-      <div className="flex-center mt-2">
-                        <button className='black_btn' onClick={() => onClose()}>ปิดหน้าต่าง</button>
-                    </div>
-
             </div>
+          </div>
+          <Modal isOpen={isOpene} setIsOpen={setIsOpene} message={message} />
+        </section>
+        <div className="flex-center mt-2">
+          <button className='black_btn' onClick={() => onClose()}>ปิดหน้าต่าง</button>
         </div>
-    )
+
+      </div>
+    </div>
+  )
 }
 
 export default Productpopup
