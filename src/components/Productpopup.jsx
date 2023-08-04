@@ -3,50 +3,19 @@ import React, { useEffect, useState } from 'react'
 import Modal from './Modal';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import Link from 'next/link';
 
 const Productpopup = ({ isOpen, onClose, product }) => {
   if (!isOpen) return null;
-
+  const [error, setError] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [items, setItems] = useState([]);
+  const [query, setQuery] = useState("");
   const { data: session } = useSession()
   const [isOpene, setIsOpene] = useState(false);
   const [message, setMessage] = useState("");
   const api = process.env.API_ENDPOINT;
 
-
-  const addToCart = async () => {
-    if (!session) {
-      setIsOpene(true);
-      setMessage("กรุณาเข้าสู่ระบบก่อนสั่งซื่อสินค้า");
-      return;
-    }
-    Swal.fire({
-      position: 'top-end',
-      icon: 'success',
-      title: 'เพิ่มสินค้าในตระกร้าสำเร็จ',
-      showConfirmButton: false,
-      timer: 1500
-    })
-    try {
-      const Data = JSON.stringify({
-        userid: session.user?.userid,
-        productid: product.productid,
-        productname: product.productname,
-        productimages: product.productimages,
-        productdesc: product.productdesc,
-        producttype: product.producttype,
-        productpice: product.productprice,
-        productstock: product.productstock,
-
-      });
-      const response = await axios.post(api + 'cart', Data);
-      // อัปเดต state หรือ context API เพื่อเก็บข้อมูลที่ผู้ใช้เลือกไว้ในตะกร้า
-
-      console.log(response.data); // ตอบกลับจาก API (ข้อมูลตะกร้าที่อัปเดต)
-    } catch (error) {
-      console.error(error);
-    }
-
-  };
 
 
   return (
@@ -109,9 +78,18 @@ const Productpopup = ({ isOpen, onClose, product }) => {
                 </div>
                 <div className="flex">
                   <span className="title-font font-medium text-2xl text-gray-900">{product.productprice}฿</span>
-                  <button className="flex ml-auto text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
-                    onClick={addToCart} >
-                    สั่งซื้อ</button>
+                  <Link
+                                    href={'/payment/' + product.productid +'/'+ session?.user.userid}
+                                    className="mt-2 flex w-28 justify-center rounded-md bg-green-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
+                                    onClick={e => {
+                                        // e.preventDefault(item.ticketid);
+                                        // console.log(item.ticketid);
+                                        // setShowModal(true);
+                                    }}
+                                >
+                                    <i className="bi bi-cart4 text-sm font-semibold mr-1" />
+                                    เลือกรายการ
+                                </Link>
                   <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
                     <svg fill="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} className="w-5 h-5" viewBox="0 0 24 24">
                       <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" />

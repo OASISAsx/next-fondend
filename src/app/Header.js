@@ -73,15 +73,8 @@ export default function Navbar() {
             </div>
             <div className="sm:flex hidden  "  >
             {session?.user.roleId === "user" && (
-                <div className="flex items-center gap-3 md:gap-5  ">
-                  <Link
-                    href={"/cart/"+session?.user.userid }
-                    className="btn btn-primary rounded-full navprofile "
-                  >
-                    <FiShoppingCart className="w-6 h-6 " />
-                    <p className='navprofilename'>ตระกร้า</p>
-
-                  </Link>
+                <div className="flex items-center gap-3 md:gap-5 ml-80 ">
+                 
                   <button
                     
                     type="button"
@@ -109,14 +102,7 @@ export default function Navbar() {
             <div className="sm:flex hidden  "  >
             {session?.user.roleId === "seller" &&  (
                 <div className="flex items-center gap-3 md:gap-5  ">
-                  <Link
-                    href={"/cart/"+session?.user.userid }
-                    className="btn btn-primary navprofile  text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
-                  >
-                    <FiShoppingCart className="w-6 h-6 " />
-                    <p className='navprofilename'>ตระกร้า</p>
-
-                  </Link>
+                 
                   <Link
                     type="button"
                     href={session?.user.roleId === 'seller' ? '/seller/addproduct/' + session?.user.userid: '/'  }
@@ -144,14 +130,7 @@ export default function Navbar() {
             <div className="sm:flex hidden  "  >
             {session?.user.roleId === "admin" &&  (
                 <div className="flex items-center gap-3 md:gap-5  ">
-                  <Link
-                     href={"/cart/"+session?.user.userid }
-                    className="btn btn-primary  navprofile text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
-                  >
-                    <FiShoppingCart className="w-6 h-6 " />
-                    <p className='navprofilename'>ตระกร้า</p>
-
-                  </Link>
+                 
                   <Link
                     type="button"
                     href={session?.user.roleId === 'seller' ? '/seller/addproduct/' + session?.user.userid: '/'  }
@@ -208,7 +187,7 @@ export default function Navbar() {
                           {({ active }) => (
 
                             <Link
-                              href={session?.user.roleId === 'admin' ? '/admin/manage' : '/' && session?.user.roleId === 'seller' ? '/seller/manage/' + session?.user.userid : '/' && session?.user.roleId === 'user' ? 'user/history/' + session.user.userid : ''}
+                              href={session?.user.roleId === 'admin' ? '/admin/manage' : '/' && session?.user.roleId === 'seller' ? '/seller/manage/' + session?.user.userid : '/' && session?.user.roleId === 'user' ? '/user/history/' + session.user.userid : ''}
                               className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-black-700 ')}
 
                             >
