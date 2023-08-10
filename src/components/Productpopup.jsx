@@ -80,7 +80,7 @@ const Productpopup = ({ isOpen, onClose, product }) => {
                   <span className="title-font font-medium text-2xl text-gray-900">{product.productprice}฿</span>
                   <Link
                                     href={'/payment/' + product.productid +'/'+ session?.user.userid}
-                                    className="mt-2 flex w-28 justify-center rounded-md bg-green-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
+                                    className="ml-auto mt-2 flex w-28 justify-center rounded-md bg-green-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
                                     onClick={e => {
                                         // e.preventDefault(item.ticketid);
                                         // console.log(item.ticketid);

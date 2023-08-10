@@ -8,7 +8,8 @@ import Swal from 'sweetalert2'
 const accountpage = () => {
   const [fromProfile, setFormProfile] = useState({})
   // const myInt = parseInt(id, 10);
-  // console.log("🚀 ~ file: page.jsx:10 ~ accountpage ~ fromProfile:", fromProfile)
+  
+   console.log("🚀 ~ file: page.jsx:10 ~ accountpage ~ fromProfile:", fromProfile)
   const {id} = useParams();
   console.log("🚀 ~ file: page.jsx:12 ~ accountpage ~ id:", id)
  

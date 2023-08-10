@@ -8,7 +8,7 @@ import { useSession } from 'next-auth/react'
 
 
 
-const addproduct = () => {
+const Addproduct = () => {
   const [error, setError] = useState(null);
   const [imageFile, setImageFile] = useState()
   // console.log("🚀 ~ file: page.jsx:14 ~ addproduct ~ imageFile:", imageFile)
@@ -29,14 +29,14 @@ const addproduct = () => {
       showConfirmButton: false,
       allowOutsideClick: false,
     });
-  
+
     e.preventDefault();
-  
+
     try {
       const response = await axios.post(api + "image", imageFile, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
-  
+
       const resp = response.data.data.data;
       const postData = await fetch(api + "product", {
         method: 'POST',
@@ -52,9 +52,9 @@ const addproduct = () => {
         }),
         headers: { "content-type": "application/json" }
       });
-  
+
       const res = await postData.json();
-  
+
       if (res !== null) {
         Swal.fire({
           title: 'เพิ่มรายการสำเร็จ',
@@ -109,14 +109,14 @@ const addproduct = () => {
       });
     }
   }
-  
 
-  const type = [{ defaultvalue: "ประเภทสินค้า" },{ value: "รองเท้า" }, { value: "เครื่องประดับ" }, { value: "ฟิกเกอร์" }, { value: "ของโบราณ" }, { value: "อื่นๆ" }]
+
+  const type = [{ defaultvalue: "ประเภทสินค้า" }, { value: "รองเท้า" }, { value: "เครื่องประดับ" }, { value: "ฟิกเกอร์" }, { value: "ของโบราณ" }, { value: "อื่นๆ" }]
   return (
     <>
 
       <div className="  min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 bg-transparent">
-        <div className="mt-4  ml-24 sm:w-full sm:max-w-3xl ">
+        <div className="-mt-10  ml-24 sm:w-full sm:max-w-3xl ">
           <div className="col-10 col-lg-5">
             <form onSubmit={handleSubmit}>
 
@@ -157,7 +157,49 @@ const addproduct = () => {
                     <label htmlFor="producttype" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">ประเภทสินค้า</label>
                   </div>
                 </div>
-                <div className="grid md:grid-cols-2 md:gap-6">
+                {/* <div className="flex items-center w-56">
+  <label
+    htmlFor="productimages"
+    className="relative flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+  >
+    <img
+      src={imageUrl}
+      className="absolute inset-0 object-cover w-full h-full opacity-50 image-overlay"
+
+    />
+    <div className="flex flex-col items-center justify-center pt-5 pb-6">
+      <svg
+        className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400"
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 20 16"
+      >
+        <path
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
+        />
+      </svg>
+      <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+        <span className="font-semibold">คลิ๊กเพื่ออัปโหลดสลีป</span>{" "}
+      </p>
+      <p className="text-xs text-gray-500 dark:text-gray-400"> PNG, JPG </p>
+    </div>
+
+
+        <input name='flie'
+          accept='image/*'
+          onChange={(e) => handleChange(e)}
+          multiple
+          className="hidden"
+            type="file"
+        />
+    </label>
+</div> <br></br> */}
+                {/* <div className="grid md:grid-cols-2 md:gap-6">
                   <div className="relative z-0 w-full mb-6 group">
                     <input type="file" name='productimages'
                       accept='image/*'
@@ -167,7 +209,34 @@ const addproduct = () => {
                   </div>
 
 
+                </div> */}
+                <div className="flex items-center  w-56">
+                  <label htmlFor="dropzone-file" className="relative flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                    <img
+                      src={imageUrl}
+                      className="absolute inset-0 object-cover w-full h-full opacity-50 image-overlay"
+
+                    />
+                    <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                      <svg className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
+                      </svg>
+                      <p className="mb-2 text-sm text-gray-500 dark:text-gray-400"><span className="font-semibold">Click to upload</span> </p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400"> PNG, JPG </p>
+                    </div>
+                    <input
+                      id="dropzone-file"
+                      type="file"
+                      name="productimages"
+                      accept="image/*"
+                      onChange={(e) => handleChange(e)}
+                      multiple // เพิ่ม attribut นี้เพื่อรองรับการอัปโหลดหลายรูป
+                      className="hidden"
+                    />
+                  </label>
                 </div>
+
+                <br></br>
                 <button type="submit"
                   className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit
                 </button>
@@ -187,4 +256,4 @@ const addproduct = () => {
   )
 }
 
-export default addproduct
+export default Addproduct

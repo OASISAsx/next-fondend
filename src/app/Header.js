@@ -65,7 +65,7 @@ export default function Navbar() {
               <ul><a href='/'>
                 <li >หน้าแรก</li></a>
                 <Link href='/category'><li>หมวดหมู่</li></Link>
-                <li>สั่งซื้อ</li>
+                <Link href='/review'><li>ริวิว</li></Link>
                 <li>รายการ</li>
                 <a href='/contact'><li>ติดต่อ</li></a>
               </ul>
@@ -133,7 +133,7 @@ export default function Navbar() {
                  
                   <Link
                     type="button"
-                    href={session?.user.roleId === 'seller' ? '/seller/addproduct/' + session?.user.userid: '/'  }
+                    href={session?.user.roleId === 'admin' ? '/admin/addproduct/' + session?.user.userid: '/'  }
                     className="btn btn-error   navprofile btnseller text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
                   >
                     <BiCartDownload className="w-6 h-6 " />

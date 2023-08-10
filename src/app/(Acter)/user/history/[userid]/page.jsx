@@ -66,17 +66,17 @@ const history = () => {
 
   return (
     <>
-       
-            
-       <div className="max-w-2xl container py-2  lg:max-w-none  justify-center his">
-         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-  <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-    <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-      <tr>
-        <th scope="col" className="px-6 py-3">
-          <span className="sr-only">Image</span>
-        </th>
-        <th scope="col" className="px-6 py-3">
+
+
+      <div className=" container py-2   items-center  justify-center ">
+        <div className="relative overflow-x-auto shadow-md sm:rounded-lg ">
+          <table className="w-auto h-auto text-sm  text-left text-gray-500 dark:text-gray-400">
+            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+              <tr>
+                <th scope="col" className="px-6 py-3">
+                  <span className="sr-only">Image</span>
+                </th>
+                <th scope="col" className="px-6 py-3">
                   ชื่อสินค้า
                 </th>
                 <th scope="col" className="px-6 py-3">
@@ -94,50 +94,65 @@ const history = () => {
                 <th scope="col" className="px-6 py-3">
                   ลบรายการ
                 </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-        <td className="w-32 p-4">
-          <img src="/docs/images/products/apple-watch.png" alt="Apple Watch" />
-        </td>
-        <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
-          Apple Watch
-        </td>
-        <td className="px-6 py-4">
-          <div className="flex items-center space-x-3">
-            <button className="inline-flex items-center justify-center p-1 text-sm font-medium h-6 w-6 text-gray-500 bg-white border border-gray-300 rounded-full focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" type="button">
-              <span className="sr-only">Quantity button</span>
-              <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
-                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M1 1h16" />
-              </svg>
-            </button>
-            <div>
-              <input type="number" id="first_product" className="bg-gray-50 w-14 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block px-2.5 py-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder={1} required />
-            </div>
-            <button className="inline-flex items-center justify-center h-6 w-6 p-1 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-full focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" type="button">
-              <span className="sr-only">Quantity button</span>
-              <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 1v16M1 9h16" />
-              </svg>
-            </button>
-          </div>
-        </td>
-        <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
-          $599
-        </td>
-        <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
-          $599
-        </td>
-        <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
-          $599
-        </td>
-        <td className="px-6 py-4">
-          <a href="#" className="font-medium text-red-600 dark:text-red-500 hover:underline">Remove</a>
-        </td>
-      </tr>
-    </tbody></table></div>
-    </div>
+               
+              </tr>
+            </thead>
+            {item.map((res, index) => (
+              res.productname.toLowerCase().includes(query.toLowerCase()) &&
+              <tbody className="border-b hover:bg-gray-300  text-center" key={index}>
+                <tr className="border-b  whitespace-nowrap dark:text-white">
+                  <td className="w-32 p-4">
+                    <img src={res.productimages} />
+
+                  </td>
+                  <td scope="row" className="px-6 py-3">
+                    {res.productname}
+                  </td >
+                  <td className="px-6 py-3">
+                    {moment(res.createddate).locale('th').format('ll')}
+                  </td>
+                  <td className="px-6 py-3">
+                    {res.productprice}
+                  </td>
+
+                  <td className="px-6 py-3">
+                    <div >
+                      <div className="p-1 bg-indigo-800 items-center text-indigo-100 leading-none lg:rounded-full flex lg:inline-flex" role="alert">
+                        <span className="flex rounded-full bg-red-950 uppercase px-2 py-1 text-xs font-bold mr-3">New</span>
+                        <span className="font-semibold mr-2 text-left flex-auto">{res.paymentstatus}</span>
+                      </div>
+                    </div>
+                  </td>
+                  
+                  <td>
+                    {res.paymentstatus === "ทำรายการสำเร็จ"
+                      ? (
+                        <Link href={"/user/review/" + res.productid}
+                          className='hover:text-amber-400'
+                        ><svg width="20" height="20" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+                        <path fill="currentColor" d="M239.2 97.29a16 16 0 0 0-13.81-11L166 81.17l-23.28-55.36a15.95 15.95 0 0 0-29.44 0L90.07 81.17l-59.46 5.15a16 16 0 0 0-9.11 28.06l45.11 39.42l-13.52 58.54a16 16 0 0 0 23.84 17.34l51-31l51.11 31a16 16 0 0 0 23.84-17.34l-13.51-58.6l45.1-39.36a16 16 0 0 0 4.73-17.09Zm-15.22 5l-45.1 39.36a16 16 0 0 0-5.08 15.71L187.35 216l-51.07-31a15.9 15.9 0 0 0-16.54 0l-51 31l13.46-58.6a16 16 0 0 0-5.08-15.71L32 102.35a.37.37 0 0 1 0-.09l59.44-5.14a16 16 0 0 0 13.35-9.75L128 32.08l23.2 55.29a16 16 0 0 0 13.35 9.75l59.45 5.14v.07Z"/>
+                    </svg>  รีวิวรายการนี้</Link>
+                      )
+                      : (
+                        <button
+                          href="#"
+                          disabled
+                          className='dark:text-white cursor-not-allowed'
+                        >รอผลการซื้อ
+                        </button>
+                      )
+                    }
+                  </td>
+                  <td className="px-6 py-3" >
+                    <button onClick={() => handleDelete(res.payid)}>
+                      <FaTrashAlt className="text-danger"></FaTrashAlt>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            ))}
+          </table></div>
+      </div>
 
     </>
   )
