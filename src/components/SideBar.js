@@ -142,16 +142,18 @@ const SideBar = () => {
           </svg>
           <span className="ml-2 text-sm font-medium">Home</span>
         </Link>
-        <a className="flex items-center w-full h-12 px-3 mt-2 rounded hover:bg-gray-300" href="#">
-          <svg className="w-6 h-6 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-          </svg>
-          <span className="ml-2 text-sm font-medium">Search</span>
+        <a className="flex items-center w-full h-12 px-3 mt-2 rounded hover:bg-gray-300" href="/admin/seller">
+        <svg className="w-6 h-6 stroke-current" xmlns="http://www.w3.org/2000/svg">
+    <path fill="currentColor" d="M8 19H6v-2a3.003 3.003 0 0 1 3-3h5v2H9a1.001 1.001 0 0 0-1 1zm4-6a4 4 0 1 1 4-4a4.005 4.005 0 0 1-4 4zm0-6a2 2 0 1 0 2 2a2.002 2.002 0 0 0-2-2zm8 13a4 4 0 1 1 4-4a4.005 4.005 0 0 1-4 4zm0-6a2 2 0 1 0 2 2a2.002 2.002 0 0 0-2-2zm6 12h-2v-2a1.001 1.001 0 0 0-1-1h-6a1.001 1.001 0 0 0-1 1v2h-2v-2a3.003 3.003 0 0 1 3-3h6a3.003 3.003 0 0 1 3 3z"/>
+    <path fill="currentColor" d="M8 30H4a2.002 2.002 0 0 1-2-2V4a2.002 2.002 0 0 1 2-2h4v2H4v24h4zm20 0h-4v-2h4V4h-4V2h4a2.002 2.002 0 0 1 2 2v24a2.002 2.002 0 0 1-2 2z"/>
+</svg>
+          <span className="ml-2 text-sm font-medium">ใช้งานการขาย</span>
         </a>
         <Link className="flex items-center w-full h-12 px-3 mt-2 rounded hover:bg-gray-300" href="/admin/manage">
           <svg className="w-6 h-6 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2" />
           </svg>
+        
           <span className="ml-2 text-sm font-medium">จัดการผู้ใช้</span>
         </Link>
       </div>

@@ -101,6 +101,7 @@ const PaymentModal = ({ isOpen, onClose, detail, userid }) => {
                             <span className="text-gray-800 text-lg font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">รหัสผู้ซื้อ: {detail.userid}</span>
                             <span className="text-gray-800 text-lg font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">ประเภทสินค้า: {detail.producttype}</span>
                             <span className="text-gray-800 text-lg font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">สถานะการชำระ: {detail.paymentstatus}</span>
+                            <span className="text-gray-800 text-lg font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">ที่อยู่: {detail.useraddress}</span>
                             <span className="text-gray-800 text-lg font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">วันที่ซื้อ: {moment(detail.createddate).locale('th').format('lll')}</span>
                         </div>
                     </div>

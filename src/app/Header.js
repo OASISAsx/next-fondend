@@ -75,15 +75,15 @@ export default function Navbar() {
             {session?.user.roleId === "user" && (
                 <div className="flex items-center gap-3 md:gap-5 ml-80 ">
                  
-                  <button
+                  <Link
                     
                     type="button"
-                    onClick={signOut}
+                    href={session?.user.roleId === 'user' ? '/user/beaseller/' + session.user.userid : ''}
                     className="btn btn-error rounded-full  navprofile btnseller bg-yellow-300"
                   >
                     <BiCartDownload className="w-6 h-6 " />
                     <p className='navprofilename'>ลงทะเบียนขาย</p>
-                  </button>
+                  </Link>
 
                   {/* <Link href="/profile">
   <Image
@@ -187,11 +187,11 @@ export default function Navbar() {
                           {({ active }) => (
 
                             <Link
-                              href={session?.user.roleId === 'admin' ? '/admin/manage' : '/' && session?.user.roleId === 'seller' ? '/seller/manage/' + session?.user.userid : '/' && session?.user.roleId === 'user' ? '/user/history/' + session.user.userid : ''}
+                              href={session?.user.roleId === 'admin' ? '/admin/manage' : '/' && session?.user.roleId === 'seller' ? '/seller/manage/' + session?.user.userid : '/' && session?.user.roleId === 'user' ? '/user/history/' + session.user.userid : '' && session?.user.roleId === 'user' ? '/user/beaseller/' + session.user.userid : ''}
                               className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-black-700 ')}
 
                             >
-                              {session?.user.roleId === 'admin' ? 'หน้าแอดมิน' : session?.user.roleId === 'seller' ? 'จัดการสินค้า' : session?.user.roleId === 'user' ? 'ประวัติการทำรายการ' : ''}
+                              {session?.user.roleId === 'admin' ? 'หน้าแอดมิน' : session?.user.roleId === 'seller' ? 'จัดการสินค้า' : session?.user.roleId === 'user' ? 'ประวัติการทำรายการ' : session?.user.roleId === 'user' ? 'หน้าแอดมิน': ''  }
                             </Link>
 
                           )}
@@ -204,6 +204,18 @@ export default function Navbar() {
                             >
                               ตั้งค่าโปรไฟล์
                             </Link>
+                            
+                          )}
+                        </Menu.Item>
+                        <Menu.Item>
+                          {({ active }) => (
+                            <Link
+                              href={"/beaseller/" + session?.user.userid}
+                              className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                            >
+                              ข้อความ
+                            </Link>
+                            
                           )}
                         </Menu.Item>
                         <Menu.Item>

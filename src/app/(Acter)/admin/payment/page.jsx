@@ -9,6 +9,7 @@ import React, { Fragment, useEffect, useState } from 'react'
 import Swal from 'sweetalert2';
 import PaymentModal from '@/components/PaymentModal';
 import { fCurrencyTH } from '@/app/functions/formatNumber';
+import CheckSlip from '@/components/CheckSilp';
 
 
 const Payment = () => {
@@ -23,6 +24,7 @@ const Payment = () => {
   const { userid } = useParams();
   const [currentTime, setCurrentTime] = useState(new Date());
   const [showModal, setShowModal] = useState(false);
+  const [showModals, setShowModals] = useState(false);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -39,6 +41,7 @@ const Payment = () => {
 
   }, [])
 
+  
   const loadData = async () => {
     const response = await axios.get(api + "buydetails")
       .then(res => {
@@ -114,6 +117,7 @@ const Payment = () => {
 
   const status = [{ value: "กำลังดำเนินการ", color: "bg-info text-white" },
   { value: "ทำรายการสำเร็จ", color: "bg-success  text-white" },
+  { value: "กำลังจัดส่ง", color: "bg-success  text-white" },
   { value: "สลิปไม่ถูกต้อง", color: "bg-danger text-white" },
   ]
 
@@ -145,17 +149,7 @@ const Payment = () => {
         <div className='grid grid-cols-2 gap-2 mt-6'>
           <div className='flex space-x-2'>
             <h2 className="text-2xl lg:font-bold tracking-tight dark:text-white xs:text-md xs:font-medium">จัดการการชำระเงิน</h2>
-            {/* <ExportPdf
-              name={"การชำระเงิน"}
-              headers={["ไอดีการซื้อ", "ไอดีผู้ใช้", "ไอดีผู้ขาย", "สถานะการซื้อ", "ชื่อรายการ", "ราคา", "ชื่อผู้ซื้อ"]}
-              data={item.map(({ payid, userid, byid, paymentstatus, ticketname, ticketprice, createdby }) => {
-                return [payid, userid, byid, paymentstatus, ticketname, ticketprice, createdby]
-              })}
-            />
-            <ExportExel
-              name={"การชำระเงิน"}
-              data={item}
-            /> */}
+          
           </div>
           <form className="flex items-center">
             <label htmlFor="simple-search" className="sr-only">ค้นหารายการ</label>
@@ -195,6 +189,9 @@ const Payment = () => {
                   </th>
                   <th scope="col" className="px-6 py-3">
                     สถานะ
+                  </th>
+                  <th scope="col" className="px-6 py-3 ">
+                    Action
                   </th>
                   <th scope="col" className="px-6 py-3">
                     Action
@@ -246,19 +243,22 @@ const Payment = () => {
                         {/* <span class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-green-400 border border-green-400">{res.paymentstatus}</span> */}
 
                       </td>
+                       <td>
+                     
+                        <button
+                          onClick={() => { setDetail(res), setShowModals(true) }}
+
+                        >แจ้งเลขพัสดุ
+                          <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path fill="currentColor" d="M20 3H4a2 2 0 0 0-2 2v2a2 2 0 0 0 1 1.72V19a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8.72A2 2 0 0 0 22 7V5a2 2 0 0 0-2-2zM4 5h16v2H4zm1 14V9h14v10z"/>
+    <path fill="currentColor" d="M8 11h8v2H8z"/>
+</svg>
+                        </button>
+
+                       
+                      </td>
                       <td>
-                        {/* {session?.user.roleid === "Admin"
-                      ? (<Link
-                        className="col-6"
-                        href={"checkslip/" + res.payid}
-                      >
-                        <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">ตรวจสอบ</button></Link>)
-                      : (<Link
-                        className="col-6"
-                        href={"/employee/checkslip/" + res.payid}
-                      >
-                        <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">ตรวจสอบ</button></Link>)
-                    } */}
+                     
                         <button
                           onClick={() => { setDetail(res), setShowModal(true) }}
 
@@ -277,6 +277,7 @@ const Payment = () => {
             </table>
           </div>
         </div>
+        <CheckSlip isOpen={showModals} onClose={() => setShowModals(false)} details={detail} payid={detail.payid} />
         <PaymentModal isOpen={showModal} onClose={() => setShowModal(false)} detail={detail} userid={detail.userid} />
       </Fragment>
     </>

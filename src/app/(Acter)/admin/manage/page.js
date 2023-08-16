@@ -9,7 +9,7 @@ import { FiTrash } from "react-icons/fi";
 
 const managepage = () => {
   const [data, setData] = useState([])
-  const uriUser = 'http://localhost:8088/v1/user/role/'
+  const uriUser = 'http://localhost:8088/v1/register/role/'
   const api = process.env.API_ENDPOINT;
   useEffect(() => {
 
@@ -45,7 +45,7 @@ const managepage = () => {
   const handleChange = async (e, id) => {
 
     const recordstatus = e.target.checked
-    const res = await axios.put(api + "user/status/" + id, { recordstatus })
+    const res = await axios.put(api + "register/status/" + id, { recordstatus })
       .then(res => {
         loadData()
 
@@ -61,31 +61,31 @@ const managepage = () => {
       <div className="max-w-2xl py-2 lg:max-w-none justify-center">
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
           <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-              <tr>
-                <th scope="col" className="px-6 py-3">
-                  No.
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  ชื่อ
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Email
-                </th>
-                <th scope="col" className="px-6 py-3 ">
-                  ผู้ใช้งาน
-                </th>
-                <th scope="col" className="px-6 py-3 ">
-                  Status
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  วันที่สมัครใช้งาน
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Acion
-                </th>
-              </tr>
-            </thead>
+              <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                  <th scope="col" className="px-6 py-3">
+                    No.
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    ชื่อ
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    Email
+                  </th>
+                  <th scope="col" className="px-6 py-3 ">
+                    ผู้ใช้งาน
+                  </th>
+                  <th scope="col" className="px-6 py-3 ">
+                    Status
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    วันที่สมัครใช้งาน
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    Acion
+                  </th>
+                </tr>
+              </thead>
 
             <tbody>
               {data.map((item, index) =>

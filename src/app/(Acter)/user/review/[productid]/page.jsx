@@ -68,7 +68,7 @@ const reviewPage = () => {
             headers: { 'Content-Type': 'multipart/form-data' }
         }).then(async resp => {
             e.preventDefault();
-            // console.log("formData", formData);
+            console.log("formData", formData);
             const postData = await fetch(api + "review", {
                 method: 'POST',
                 body: JSON.stringify({
