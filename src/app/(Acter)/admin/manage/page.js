@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import Link from 'next/link'
 import { FiTrash } from "react-icons/fi";
+import moment from 'moment';
+import 'moment/min/locales';
 
 
 
@@ -10,6 +12,7 @@ import { FiTrash } from "react-icons/fi";
 const managepage = () => {
   const [data, setData] = useState([])
   const uriUser = 'http://localhost:8088/v1/register/role/'
+  console.log("🚀 ~ file: page.js:15 ~ managepage ~ uriUser:", uriUser)
   const api = process.env.API_ENDPOINT;
   useEffect(() => {
 
@@ -53,7 +56,7 @@ const managepage = () => {
   }
 
 
-
+  
 
   return (
     <>
@@ -76,13 +79,13 @@ const managepage = () => {
                     ผู้ใช้งาน
                   </th>
                   <th scope="col" className="px-6 py-3 ">
-                    Status
+                    สถานะ
                   </th>
                   <th scope="col" className="px-6 py-3">
                     วันที่สมัครใช้งาน
                   </th>
                   <th scope="col" className="px-6 py-3">
-                    Acion
+                    ลงทะเบียน
                   </th>
                 </tr>
               </thead>
@@ -101,10 +104,10 @@ const managepage = () => {
                     {item.email}
                   </td>
                   <td className="px-6 py-4">
-                    <select onChange={(e) => handleChangeRole(e, item.userid)}
-                      className='from-control'
+                    <select  className="form-select text-white bg-gray-900 rounded-3xl"
+                    onChange={(e) => handleChangeRole(e, item.userid)}
                       value={item.roleId}
-                    >
+                    > 
                       {roles.map((item, index) =>
                         <option key={index} value={item}>
                           {item}

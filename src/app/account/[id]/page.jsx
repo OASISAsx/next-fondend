@@ -37,46 +37,48 @@ const accountpage = () => {
 
   }
 
-  const handleSubmit = async () => {
-    
-    
-    // Swal.fire({
-    //   icon:"info",
-    //   title:"ต้องสมัครสมาชิก ?",
-    //   showCancelButton: true,
-    //   confirmButtonColor:"green",
-    //   cancelButtonColor:"#E92F07",
-    //   cancelButtonText:"ต้องการยกเลิก",
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const { value: confirmed } = await Swal.fire({
+      icon: "info",
+      title: "ต้องการแก้ไขข้อมูล?",
+      showCancelButton: true,
+      confirmButtonColor: "green",
+      confirmButtonText: "ตกลง",
+      cancelButtonColor: "#E92F07",
+      cancelButtonText: "ยกเลิก",
+    });
+  
+    if (confirmed) {
+      try {
+        // แทนที่ด้วย URL ที่ถูกต้องสำหรับการส่งคำร้องขอไปยัง API
+        const response = await axios.put(api + "userdetail/" + id, fromProfile);
+        console.log(response.data);
+  
+        await Swal.fire({
+          icon: "success",
+          title: "เสร็จสิ้น",
+          confirmButtonColor: "green",
+        });
+  
+        // รีเฟรชหน้าเมื่อกด OK ในแจ้งเตือน
+        window.location.reload();
+      } catch (error) {
+        console.log(error);
+        Swal.fire({
+          icon: "error",
+          title: "เกิดข้อผิดพลาด",
+          text: "ไม่สามารถสมัครสมาชิกได้ในขณะนี้",
+          confirmButtonColor: "red",
+        });
+      }
+    }
+  };
+  
+  // ในเวลาเรียกใช้งาน
+  // เช่นเมื่อคลิกที่ปุ่มหรือเหตุการณ์ที่ต้องการให้แสดงแจ้งเตือน
+  
 
-
-      
-    // }).then(async(result)=>{
-    //   if (result.isConfirmed){
-
-        // e.preventDefaulf()
-        await axios.put(api+"userdetail/"+id,fromProfile)
-        .then(async (res)=>{
-            console.log(res.data)
-            
-            
-        //   }).catch(err=>{
-        //       console.log(err=> console.log(err))
-        //     })
-            
-        //   // Swal.fire({
-        //   //   icon:"success",
-        //   //   title:"เสร็จสิ้น",
-        //   //   confirmButtonColor:"green",
-        //   // }).then(()=>{
-        //   //   window.location.replace('/')
-        //   // })
-        // }
-          
-
-
-    })
-
-  }
   const handleChange = (e) => {
     setFormProfile({
       ...fromProfile,

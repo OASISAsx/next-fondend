@@ -2,7 +2,7 @@
 import React from 'react'
 // import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/globals.css'
-import Navbar from './Header';
+import Navbar from './Navbar';
 import '@fontsource/public-sans';
 import { SessionProvider } from "next-auth/react";
 import Footer from '@/components/Footer';

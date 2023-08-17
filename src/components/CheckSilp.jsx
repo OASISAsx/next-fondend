@@ -5,6 +5,7 @@ import 'moment/min/locales';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { render } from 'react-dom';
+import { useSession } from 'next-auth/react';
 
 const CheckSilp = ({ isOpen, onClose, payid, details }) => {
     // console.log("🚀 ~ file: checksilp.jsx:10 ~ CheckSilp ~ payid:", payid)
@@ -14,6 +15,7 @@ const CheckSilp = ({ isOpen, onClose, payid, details }) => {
     const [item, setItem] = useState({});
     const [formData, setFormData] = useState([])
     const api = process.env.API_ENDPOINT;
+    const { data: session } = useSession()
     const handleChange = (e) => {
 
 
@@ -80,11 +82,13 @@ const CheckSilp = ({ isOpen, onClose, payid, details }) => {
     }
 
     return (
+    <>
+    {session?.user.roleId === "seller" &&
         <div className='fixed top-0 left-0 w-screen h-screen bg-black/50 bg-opacity-25 flex justify-center items-center backdrop-blur-sm'>
             <div className="w-[60%] h-[55%]  rounded-lg flex flex-col">
                 <button className='px-5 py-4.5 mr-5 justify-center items-center place-self-end text-white' onClick={() => onClose()}>ปิด X</button>
                 <div className="bg-white p-20 rounded-lg">
-                    <div className="mt-6 sm:mx-auto sm:w-full sm:max-w-sm">
+                    <div className=" sm:mx-auto sm:w-full sm:max-w-sm">
                         <form className="space-y-4" action="#" method="POST"
                             encType='multipart/form-data'
                             onSubmit={handleSubmit}
@@ -141,14 +145,79 @@ const CheckSilp = ({ isOpen, onClose, payid, details }) => {
                     </div>
                 </div>
 
+            
+           
             </div>
         </div>
+}
+ {session?.user.roleId === "user" &&
+  <div className='fixed top-0 left-0 w-screen h-screen bg-black/50 bg-opacity-25 flex justify-center items-center backdrop-blur-sm'>
+  <div className="w-[40%] h-[60%]  rounded-lg flex flex-col">
+      <button className='px-5 py-4.5  justify-center items-center place-self-end text-white' onClick={() => onClose()}>ปิด X</button>
+      <div className="bg-white p-16 rounded-lg ">
+          <div className=" sm:mx-auto sm:w-full sm:max-w-sm ">
+              <form className="space-y-4" action="#" method="POST"
+                  encType='multipart/form-data'
+                  onSubmit={handleSubmit}
+              >
 
 
 
+                  <div>
+                      <div className="flex items-center justify-between">
+                          <label htmlFor="bankname" className="block text-sm font-medium leading-6 dark:text-white">
+                              เลขพัสดุ
+                          </label>
+                      </div>
+                      <div className="mt-1">
+                          <input
+                              placeholder='กรุณากรอกเลขพัสดุ'
+                              type='text'
+                              name='parnum'
+                              defaultValue={details.parnum}
+                              required
+                              disabled
+                              onChange={(e) => handleChange(e)}
+                              className="block w-full rounded-md border-0 py-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                          />
+                      </div>
+                  </div>
+                  <div>
+                      <div className="flex items-center justify-between">
+                          <label htmlFor="bankid" className="block text-sm font-medium leading-6 dark:text-white">
+                              บริษัทขนส่งพัสดุ
+                          </label>
+                      </div>
+                      <div className="mt-1">
+                          <input
+                              placeholder='กรุณากรอกชื่อบริษัทขนส่งพัสดุ'
+                              type='text'
+                              name='transport'
+                              defaultValue={details.transport}
+                              required
+                              disabled
+                              onChange={(e) => handleChange(e)}
+                              className="block w-full rounded-md border-0 py-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                          />
+                      </div>
+                  </div>
+
+                  <div>
+                     
+                  </div>
+              </form>
+          </div>
+      </div>
+
+  
+ 
+  </div>
+</div>
+            }
 
 
 
+</>
     )
 }
 

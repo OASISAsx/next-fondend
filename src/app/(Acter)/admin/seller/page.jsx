@@ -15,6 +15,7 @@ const Seller = (userid) => {
     const [isLoaded, setIsLoaded] = useState(false);
     const [item, setItem] = useState([]);
     const [seller, setSeller] = useState({})
+    const [register, setRegister] = useState({})
     const [query, setQuery] = useState("");
     const [showModal, setShowModal] = useState(false);
     const [currentTime, setCurrentTime] = useState(new Date());
@@ -279,7 +280,7 @@ const Seller = (userid) => {
                     </div>
                 </div>
             </section>
-            <SellerModal isOpen={showModal} onClose={() => setShowModal(false)} seller={seller} userid={userid}  />
+            <SellerModal isOpen={showModal} onClose={() => setShowModal(false)} seller={seller}   userid={seller.userid}  />
         </Fragment>
     )
 }

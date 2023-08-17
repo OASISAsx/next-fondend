@@ -6,10 +6,11 @@ import { useParams } from 'next/navigation';
 import React, { Fragment, useEffect, useState } from 'react'
 
 const beaseller = () => {
-    const [showModal, setShowModal] = useState(false);
+    
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(true);
     const [item, setItem] = useState({});
+    console.log("🚀 ~ file: page.jsx:13 ~ beaseller ~ item:", item)
     // console.log("🚀 ~ file: page.jsx:10 ~ SellerRegistration ~ item:", item)
     const api = process.env.API_ENDPOINT;
     const { userid } = useParams()
@@ -19,7 +20,7 @@ const beaseller = () => {
     }, [])
 
     const loadDataByid = async () => {
-        const response = await axios.get(api + `userdetail/${userid}`)
+        const response = await axios.get(api + `sellerdetail/${userid}`)
             .then((res) => {
                 setItem(res.data)
                 setIsLoaded(true)

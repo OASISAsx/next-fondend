@@ -1,5 +1,4 @@
 "use client"
-import seller from '@/app/(Acter)/seller/page';
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
 import React, { Fragment, useState } from 'react'
@@ -32,18 +31,28 @@ const Registration = ({ userdetail }) => {
     }
 
     const handleSubmit = async (e) => {
+        let timerInterval
         Swal.fire({
-            title: "กำลังอัพโหลดข้อมูล",
-            html: '<div class="flex-center overflow-y-hidden" id="loading-spinner"></div>',
-            showConfirmButton: false,
-            allowOutsideClick: false,
-            didOpen: () => {
-                render(
-                    <PacmanLoader color="#326bc2" size={60} loading={true} />,
-                    document.getElementById("loading-spinner")
-                );
-            },
-        });
+          title: 'กำลังกำเนินการสั่งซื้อ!',
+          html: 'โหลดข้อมูล  .',
+          timer: 2000,
+          timerProgressBar: true,
+          didOpen: () => {
+            Swal.showLoading()
+            const b = Swal.getHtmlContainer().querySelector('b')
+            timerInterval = setInterval(() => {
+             
+            }, 100)
+          },
+          willClose: () => {
+            clearInterval(timerInterval)
+          }
+        }).then((result) => {
+          /* Read more about handling dismissals below */
+          if (result.dismiss === Swal.DismissReason.timer) {
+            console.log('I was closed by the timer')
+          }
+        })
         e.preventDefault();
         const response = await axios.post(api + "image", imageFile, {
             headers: { 'Content-Type': 'multipart/form-data' }
@@ -84,18 +93,18 @@ const Registration = ({ userdetail }) => {
     return (
         <>
             <Fragment>
-            <div className="flex flex-1 flex-col justify-center px-6 py-12 lg:px-8 w-full h-[50%]">
-    <div className="sm:mx-auto sm:w-full sm:max-w-sm -mt-14">
-
+            <div className=" flex-auto">
+    <div className="sm:mx-auto sm:w-full sm:max-w-sm -mb-24 text-3xl mr-auto text-zinc-600  ">
+            ลงทะเบียนเป็นผู้ขาย
                     </div>
 
-                    <div className="mt-10  mr-auto">
+                    <div className="flex justify-center items-center h-screen  ">
                         <form className="space-y-4" action="#" method="POST"
                             encType='multipart/form-data'
                             onSubmit={handleSubmit}
                         >
-                            <div className="grid grid-cols-2 gap-6">
-                                <div className="mb-1">
+                            <div className="grid grid-cols-2 gap-6 -mb-6">
+                                <div className="">
                                     <label htmlFor="firstname" className="block text-sm font-medium leading-6 dark:text-white">
                                         ชื่อ
                                     </label>
@@ -175,23 +184,49 @@ const Registration = ({ userdetail }) => {
                                     />
                                 </div>
                             </div>
-                            <div>
-                                <div className="flex items-center justify-between">
-                                </div>
-                                <div className="mt-0">
-                                    <label htmlFor="persioncard" className="block text-sm font-medium leading-6 dark:text-white">
-                                        ภาพถ่ายบัตรประชาชน
-                                    </label>
-                                    <input
-                                        name='file'
-                                        accept='image/*'
-                                        onChange={(e) => handleChange(e)}
-                                        required
-                                        multiple
-                                        className="block w-full rounded-md border-0 py-0.5 dark:text-white shadow-sm ring-1 ring-inset ring-white-300 placeholder:dark:text-white focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" aria-describedby="file_input_help" id="file_input" type="file" />
+                           
+                             <div className="flex items-center w-2/3">
+  <label
+    htmlFor="dropzone-file"
+    className="relative flex flex-col items-center justify-center w-48 h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+  >
+    <img
+      src={imageUrl}
+      className="absolute inset-0 object-cover w-full h-full opacity-50 image-overlay"
+            alt=""
+    />
+    <div className="flex flex-col items-center justify-center pt-5 pb-6">
+      <svg
+        className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400"
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 20 16"
+      >
+        <path
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
+        />
+      </svg>
+      <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+        <span className="font-semibold">คลิ๊กเพื่ออัปโหลดสำเนาบัตร</span>{" "}
+      </p>
+      <p className="text-xs text-gray-500 dark:text-gray-400"> PNG, JPG </p>
+    </div>
+  
 
-                                </div>
-                            </div>
+        <input name='file'
+          accept='image/*'
+          onChange={(e) => handleChange(e)}
+          multiple
+          className="hidden"
+          aria-describedby="file_input_help" id="dropzone-file" type="file"
+        />
+    </label>
+</div> 
                             <div>
                                 <button
                                     type="submit"

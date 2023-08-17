@@ -1,8 +1,8 @@
-
+"use client"
 import axios from 'axios';
 import React, { Fragment, useEffect, useState } from 'react'
 
-const SellerModal = ({ isOpen, onClose, seller, userid,detail }) => {
+const SellerModal = ({ isOpen, onClose, seller, userid, }) => {
   const [SellerDetail, setSellerDetail] = useState({});
   const [register, setRegister] = useState();
   console.log("🚀 ~ file: SellerModal.jsx:8 ~ SellerModal ~ register:", register)
@@ -12,7 +12,7 @@ const SellerModal = ({ isOpen, onClose, seller, userid,detail }) => {
     // ฟังก์ชันสำหรับดึงข้อมูลผู้ใช้ด้วย userid
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(api + `registers/${userid}`);
+        const response = await axios.get(api + `register/${userid}`);
         setRegister(response.data);
         console.log("🚀 ~ file: SellerModal.jsx:17 ~ fetchUserData ~ response:", response)
         
@@ -47,11 +47,11 @@ const SellerModal = ({ isOpen, onClose, seller, userid,detail }) => {
             />
           </div>
           <div className="text-center mt-2">
-            {detail ?
+            {register ?
               <>
-                <p>ชื่อผู้ใช้: {detail.username}</p>
-                <p>ชื่อเล่น: {detail.nickname}</p>
-                <p>บทบาท: {detail .roleId}</p>
+                <p>ชื่อผู้ใช้: {register.username}</p>
+                <p>ชื่อเล่น: {register.nickname}</p>
+                <p>บทบาท: {register .roleId}</p>
 
               </>
               : <h1> ไม่พบข้อมูลผู้ใช้ </h1>
