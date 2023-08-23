@@ -1,31 +1,58 @@
+"use client"
 import { useSession } from 'next-auth/react';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import Modal from './Modal';
-import axios from 'axios';
-import Swal from 'sweetalert2';
+
 import Link from 'next/link';
 
+
 const Productpopup = ({ isOpen, onClose, product }) => {
+  
   if (!isOpen) return null;
-  const [error, setError] = useState(null);
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [items, setItems] = useState([]);
-  const [query, setQuery] = useState("");
-  const { data: session } = useSession()
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const productImages = [
+    ...new Set([product.productimages, product.productimagex, product.productimagey, product.productimagez])
+  ];
+  
+  console.log("🚀 ~ file: Productpopup.jsx:14 ~ Productpopup ~ productImages:", productImages)
+  
   const [isOpene, setIsOpene] = useState(false);
   const [message, setMessage] = useState("");
+  
+  const { data: session } = useSession();
   const api = process.env.API_ENDPOINT;
 
+  const handlePreviousImage = () => {
+    setCurrentImageIndex((prevIndex) => (prevIndex > 0 ? prevIndex - 1 : prevIndex));
+  };
 
+  const handleNextImage = () => {
+    setCurrentImageIndex((prevIndex) => (prevIndex < productImages.length - 1 ? prevIndex + 1 : prevIndex));
+  };
 
   return (
-    <div className='modal-portal  fixed top-0 left-0 w-screen h-screen bg-black/50 bg-opacity-25 flex justify-center items-center backdrop-blur-sm  '>
-      <div className="relative  w-[80%] h-[80%]   rounded-lg  ">
-        <section className="text-gray-700 body-font overflow-hidden bg-white  justify-between pop">
+    <div className='modal-portal fixed top-0 left-0 w-screen h-screen bg-black/50 bg-opacity-25 flex justify-center items-center backdrop-blur-sm'>
+      <div className="relative w-[80%] h-[80%] rounded-lg">
+        <section className="text-gray-700 body-font overflow-hidden bg-white justify-between pop">
           <div className="container px-4 py-10 mx-auto">
             <div className="lg:w-4/5 mx-auto flex flex-wrap mt-10">
-              <img alt="ecommerce" className=" h-80 object-contain object-center rounded border border-gray-200" src={product.productimages} />
-
+            <div className="relative ">
+          <div className="absolute left-1 top-1/2 transform -translate-y-1/2 h-44">
+          <button className="btnw iconss" onClick={handlePreviousImage}>
+  <span className="icon">❮</span>
+</button>
+          </div>
+          <img
+            alt="ecommerce"
+            className="h-80 object-contain object-center rounded border border-gray-200"
+            src={productImages[currentImageIndex]}
+          />
+          <div className="absolute right-1 top-1/2 transform -translate-y-1/2 h-44">
+            <button className="btnw iconss" onClick={handleNextImage}>
+              ❯
+            </button>
+          </div>
+        </div>
               <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
                 <h2 className="text-sm title-font text-gray-500 tracking-widest">{product.producttype}</h2>
                 <h1 className="text-gray-900 text-3xl title-font font-medium mb-1 ">{product.productname}</h1>
@@ -96,9 +123,10 @@ const Productpopup = ({ isOpen, onClose, product }) => {
                     </svg>
                   </button>
                 </div>
+              
               </div>
             </div>
-          </div>
+          </div> 
           <Modal isOpen={isOpene} setIsOpen={setIsOpene} message={message} />
         </section>
         <div className="flex-center mt-2">

@@ -14,6 +14,7 @@ const PaymentModal = ({ isOpen, onClose, detail, userid }) => {
     const api = process.env.API_ENDPOINT;
     useEffect(() => {
         loadData();
+        
     }, []);
 
     const loadData = async () => {
@@ -27,7 +28,9 @@ const PaymentModal = ({ isOpen, onClose, detail, userid }) => {
                 setError(err);
                 // console.log(err);
             });
+            
     };
+    
     const handleSubmit = async (payid) => {
         Swal.fire({
             title: 'คุณได้ตรวจสอบแล้วใช่หรือไม่',

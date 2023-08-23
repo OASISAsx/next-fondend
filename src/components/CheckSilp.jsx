@@ -68,13 +68,14 @@ const CheckSilp = ({ isOpen, onClose, payid, details }) => {
 
                 if (res !== null) {
                     Swal.fire({
-                        title: 'ลงทะเบียนสำเร็จ',
-                        text: 'กรุณารออนุมัติจากแอดมิน',
+                        title: 'กรอกข้อมูลพัสดุเสร็จสิ้น',
+                        text: 'ระบบกำลังแจ้งไปยังผู้ซื้อ',
                         icon: 'success',
                         confirmButtonColor: '#3085d6',
                     }).then((result) => {
                         if (result.isConfirmed) {
                             window.location.replace("/admin/payment")
+                            
                         }
                     })
                 }

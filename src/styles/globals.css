@@ -288,6 +288,20 @@ footer {
     margin: 0;
   }
 }
+.btnw {
+  background-color: transparent; /* ตั้งค่าพื้นหลังเป็นโปร่งใส */
+  border: none; /* ลบเส้นขอบ */
+  cursor: pointer; /* แสดงเคอร์เซอร์เป็นตัวชี้ช่วย */
+  transform: scale(1.03);
+}
+
+ .iconss {
+  font-size: 30px; /* ปรับขนาดไอคอนตามที่ต้องการ */
+  color: #DFDFDF;
+  transform: scale(1.03);
+ 
+}
+
 .ending{
   margin-bottom: 20px;
 }

@@ -113,19 +113,19 @@ const reviewPage = () => {
                         >
                             <div class="flex items-center justify-between">
                                 <div class="rating flex ">
-                                    <input type='radio' className='hidden' name='revrank' id='rating-opt5' data-idx='0' value='5' onClick={(e) => handleChange(e)} />
+                                    <input type='radio' className='hidden' name='rvrank' id='rating-opt5' data-idx='0' value='5' onClick={(e) => handleChange(e)} />
                                     <label for='rating-opt5'></label>
 
-                                    <input type='radio' className='hidden' name='revrank' id='rating-opt4' data-idx='1' value='4' onClick={(e) => handleChange(e)} />
+                                    <input type='radio' className='hidden' name='rvrank' id='rating-opt4' data-idx='1' value='4' onClick={(e) => handleChange(e)} />
                                     <label for='rating-opt4'></label>
 
-                                    <input type='radio' className='hidden' name='revrank' id='rating-opt3' data-idx='2' value='3' onClick={(e) => handleChange(e)} />
+                                    <input type='radio' className='hidden' name='rvrank' id='rating-opt3' data-idx='2' value='3' onClick={(e) => handleChange(e)} />
                                     <label for='rating-opt3'></label>
 
-                                    <input type='radio' className='hidden' name='revrank' id='rating-opt2' data-idx='3' value='2' onClick={(e) => handleChange(e)} />
+                                    <input type='radio' className='hidden' name='rvrank' id='rating-opt2' data-idx='3' value='2' onClick={(e) => handleChange(e)} />
                                     <label for='rating-opt2'></label>
 
-                                    <input type='radio' className='hidden' name='revrank' id='rating-opt1' data-idx='4' value='1' onClick={(e) => handleChange(e)} />
+                                    <input type='radio' className='hidden' name='rvrank' id='rating-opt1' data-idx='4' value='1' onClick={(e) => handleChange(e)} />
                                     <label for='rating-opt1'></label>
                                 </div>
                                 <p class="dark:text-white">คะแนนรีวิว</p>
@@ -137,7 +137,7 @@ const reviewPage = () => {
                                     </label>
                                 </div>
                                 <div class="mt-2">
-                                    <textarea name="revcomment" onChange={(e) => handleChange(e)} rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your thoughts here..." />
+                                    <textarea name="rcvcomment" onChange={(e) => handleChange(e)} rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your thoughts here..." />
                                 </div>
                             </div>
                             <div>
