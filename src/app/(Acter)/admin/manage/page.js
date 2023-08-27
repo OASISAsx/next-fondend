@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { FiTrash } from "react-icons/fi";
 import moment from 'moment';
 import 'moment/min/locales';
+import Swal from 'sweetalert2';
 
 
 
@@ -35,11 +36,29 @@ const managepage = () => {
       }).catch(err => console.log(err))
   }
   const handleDelete = async (id) => {
-    const res = await axios.delete(api + "register/" + id)
-      .then(res => {
-        loadData()
-
-      }).catch(err => console.log(err))
+    Swal.fire({
+      title: 'ต้องการลบบัญชีนี้หรือไม่?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonText: 'ยืนยัน',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'ยืนยัน!',
+  }).then(async (result) => {
+      if (result.isConfirmed) {
+        axios.delete(api + "register/" + id)
+        .then(res => {
+          loadData()
+                  loadData()
+                      .catch(err => console.log(err))
+              })
+          Swal.fire(
+              'ลบสำเร็จ!',
+              'คุณได้ทำการลบผู้ใช้!',
+              'สำเร็จ'
+          )
+      }
+  })
   }
 
   console.log(data)
@@ -84,8 +103,8 @@ const managepage = () => {
                   <th scope="col" className="px-6 py-3">
                     วันที่สมัครใช้งาน
                   </th>
-                  <th scope="col" className="px-6 py-3">
-                    ลงทะเบียน
+                  <th scope="col" className="px-10 py-3">
+                    ลบผู้ใช้
                   </th>
                 </tr>
               </thead>
@@ -132,7 +151,7 @@ const managepage = () => {
 
                   <td >
                   <button className="iconTrash ml-8">
-                     <FiTrash className="w-6 h-6 " onClick={() => handleDelete(item.userid)}/> 
+                  <button type="button" onClick={() => handleDelete(item.userid)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">ลบผู้ใช้</button>
                        
                       </button>
                   </td>

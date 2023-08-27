@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
 import PaymentModal from '@/components/PaymentModal';
 import { fCurrencyTH } from '@/app/functions/formatNumber';
 import CheckSlip from '@/components/CheckSilp';
+import Productpopup from '@/components/Productpopup';
 
 
 const Payment = () => {
@@ -25,21 +26,22 @@ const Payment = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [showModal, setShowModal] = useState(false);
   const [showModals, setShowModals] = useState(false);
-
+ 
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentTime(new Date());
     }, 1000);
+  
     if (userid === undefined) {
-      loadData()
+      loadData();
     } else {
-      loadDataByid(userid)
+      loadDataByid(userid);
     }
+  
     return () => {
       clearInterval(timer);
     };
-
-  }, [])
+  }, [userid]);
 
   
   const loadData = async () => {
@@ -66,10 +68,40 @@ const Payment = () => {
       })
   }
 
-  async function handleChangesST(e, payid) {
-    const paymentstatus = e.target.value;
+  
+ 
+  
+  // ...
 
-    console.log({ paymentstatus }, payid);
+const updateSellStatusForProduct = async (productid) => {
+  try {
+    const response = await axios.put(api + "product/status/seller/" + productid, { sellstatus: true });
+    const response1 = await axios.put(api + "product/" + productid, { productstock: "0" });
+    console.log("Sell status updated for product:", productid);
+  } catch (error) {
+    console.error("Error updating sell status:", error);
+  }
+}
+
+// ...
+
+async function handleChangesST(e, payid, productid) {
+  const paymentstatus = e.target.value;
+
+  console.log({ paymentstatus }, payid);
+  if (paymentstatus === "กำลังจัดส่ง",paymentstatus === "ทำรายการสำเร็จ") {
+    updateSellStatusForProduct(productid);
+    const updatedProductStock = "0"; // อัพเดทเป็น 0
+    axios.put(api + "buydetail/" + payid, { paymentstatus, productstock: updatedProductStock })
+      .then(res => {
+        if (userid === undefined) {
+          loadData()
+        } else {
+          loadDataByid(userid)
+        }
+        console.log(handleChangesST)
+      })
+  } else {
     axios.put(api + "buydetail/" + payid, { paymentstatus })
       .then(res => {
         if (userid === undefined) {
@@ -79,8 +111,10 @@ const Payment = () => {
         }
         console.log(handleChangesST)
       })
-
   }
+}
+
+// ...
 
 
   async function handleDelete(payid) {
@@ -124,7 +158,7 @@ const Payment = () => {
   return (
     <>
       <Fragment>
-        <div className="stats shadow flex-center">
+        {/* <div className=" stats shadow flex-center py-4 px-6">
           <div className="stat place-items-center">
             <div className="stat-title">จำนวนคำสั่งซื้อ</div>
             <div className="stat-value">{item.length}</div>
@@ -145,8 +179,51 @@ const Payment = () => {
             }
             <div className="stat-desc">รายได้จาก vat 7% จากยอดขายทั้งหมด</div>
           </div>
+        </div> */}
+  {/* component */}
+<div className="max-w-full mx-4 py-6 sm:mx-auto sm:px-6 -mt-16 lg:px-8">
+  <div className="sm:flex sm:space-x-4">
+    <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow transform transition-all mb-4 w-full sm:w-1/3 sm:my-8">
+      <div className="bg-white p-5">
+        <div className="sm:flex sm:items-start">
+          <div className="text-center sm:mt-0 sm:ml-2 sm:text-left">
+            <h3 className="text-sm leading-6 font-medium text-gray-400">จำนวนคำสั่งซื้อ</h3>
+            <p className="text-3xl font-bold text-black">{item.length}</p>
+            <div className="text-sm leading-6 font-medium text-gray-400">เวลาอ้างอิง: {currentTime.toLocaleTimeString()}</div>
+          </div>
         </div>
-        <div className='grid grid-cols-2 gap-2 mt-6'>
+      </div>
+    </div>
+    <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow transform transition-all mb-4 w-full sm:w-1/3 sm:my-8">
+      <div className="bg-white p-5">
+        <div className="sm:flex sm:items-start">
+          <div className="text-center sm:mt-0 sm:ml-2 sm:text-left">
+            <h3 className="text-sm leading-6 font-medium text-gray-400">ยอดรวมการขาย (ราคา)</h3>
+            <p className="text-3xl font-bold text-black">{fCurrencyTH(totalSales)}฿</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow transform transition-all mb-4 w-full sm:w-1/3 sm:my-8">
+      <div className="bg-white p-5">
+        <div className="sm:flex sm:items-start">
+          <div className="text-center sm:mt-0 sm:ml-2 sm:text-left">
+            <h3 className="text-sm leading-6 font-medium text-gray-400">เงินที่ได้</h3>
+            {session?.user.roleId === "admin" &&
+            <p className="text-3xl font-bold text-black">{fCurrencyTH(totalSales * 7 / 100)}฿</p>
+      }
+      {session?.user.roleId === "seller" &&
+            <p className="text-3xl font-bold text-black">{fCurrencyTH((totalSales) - totalSales * 7 / 100)}฿</p>
+      }
+       <h3 className="text-sm leading-6 font-medium text-gray-400">รายได้จาก vat 7% จากยอดขายทั้งหมด</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+        <div className='grid grid-cols-2 gap-2 -mt-10 '>
           <div className='flex space-x-2'>
             <h2 className="text-2xl lg:font-bold tracking-tight dark:text-white xs:text-md xs:font-medium">จัดการการชำระเงิน</h2>
           
@@ -188,6 +265,9 @@ const Payment = () => {
                     ประเภท
                   </th>
                   <th scope="col" className="px-6 py-3">
+                    จำนวน
+                  </th>
+                  <th scope="col" className="px-6 py-3">
                     สถานะ
                   </th>
                   <th scope="col" className="px-6 py-3 ">
@@ -205,8 +285,8 @@ const Payment = () => {
                     res.createdby.toLowerCase().includes(query.toLowerCase()) ||
                     res.paymentstatus.toLowerCase().includes(query.toLowerCase()) ||
                     res.productimages.toLowerCase().includes(query.toLowerCase()) ||
-                    res.producttype.toLowerCase().includes(query.toLowerCase())
-
+                    res.producttype.toLowerCase().includes(query.toLowerCase()) ||
+                    res.productstock.toLowerCase().includes(query.toLowerCase())
                   // กรองเฉพาะรายการที่ตรงกับการค้นหา
                   if (!isMatch) {
                     return null;
@@ -229,8 +309,12 @@ const Payment = () => {
                         {res.producttype}
                       </td>
                       <td className="px-6 py-4">
+                        {res.productstock}
+                      </td>
+                      <td className="px-6 py-4">
                         <select className="form-select text-white bg-gray-900 rounded-3xl"
-                          onChange={(e) => handleChangesST(e, res.payid)}
+                          onChange={(e) => handleChangesST(e, res.payid, res.productid)}
+                          
                           value={res.paymentstatus}
                           key={index}
                           readOnly
@@ -277,8 +361,11 @@ const Payment = () => {
             </table>
           </div>
         </div>
+       
         <CheckSlip isOpen={showModals} onClose={() => setShowModals(false)} details={detail} payid={detail.payid} />
-        <PaymentModal isOpen={showModal} onClose={() => setShowModal(false)} detail={detail} userid={detail.userid} />
+        <PaymentModal isOpen={showModal} onClose={() => setShowModal(false)} detail={detail} userid={detail.userid} productid={detail.productid} />
+
+
       </Fragment>
     </>
   )

@@ -89,7 +89,8 @@ const Popupbuyid = ({ }) => {
         productname: item.productname,
         prouctprice: item.productprice,
         producttype: item.producttype,
-        productdesc: item.productdesc,
+        productdesc: item.productdesc, 
+        productstock: item.productstock,       
         createdby: session?.user.nickname,
       })
     }
@@ -140,6 +141,7 @@ Swal.fire({
           productimages:item.productimages,
           producttype: item.producttype,
           productdesc: item.productdesc,
+          productstock: item.productstock,
           createdby: session?.user.nickname,
         }),
         headers: { "content-type": "application/json" }
@@ -154,7 +156,15 @@ Swal.fire({
               confirmButtonColor: '#3085d6',
             }).then((result) => {
               if (result.isConfirmed) {
+                {session?.user.roleId === "user" && (
                 window.location.replace("/user/history/" + session?.user.userid)
+            )}
+            {session?.user.roleId === "seller" && (
+                window.location.replace("/seller/history/" + session?.user.userid)
+                )}
+                {session?.user.roleId === "admin" && (
+                window.location.replace("/admin/history/" + session?.user.userid)
+                )}
               }
             })
           }

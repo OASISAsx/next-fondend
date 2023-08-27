@@ -150,7 +150,7 @@ border: 3px solid #0aa1ff;
 
 }
 .product {
-  width: 70%;
+  width: 80%;
   padding: 10px;
   height: 100%;
   display: grid;
@@ -203,6 +203,12 @@ border: 3px solid #0aa1ff;
   transform: scale(1.03);
  
 }
+.contacts:hover{
+  transform: scale(1.03);
+}
+.icona {
+  font-size: 35px;
+}
 .product-img {
   width: 100%;
   height: 13vw;
@@ -210,6 +216,7 @@ border: 3px solid #0aa1ff;
   border-radius: 10px;
   margin-bottom: 15px;
 }
+
 .navprofile {
   display: flex;
   align-items: center;
@@ -304,6 +311,67 @@ footer {
 
 .ending{
   margin-bottom: 20px;
+}
+
+/* สำหรับเนื้อหาทั้งหมดภายใน Sidebar */
+.sidebar {
+  width: 240px;
+  background-color: #f3f4f6;
+  padding: 20px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+/* สำหรับลิงก์ในเมนู */
+.sidebar a {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-radius: 5px;
+  text-decoration: none;
+  color: #333;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.sidebar a:hover {
+  background-color: #e2e8f0;
+  color: #000;
+}
+
+/* สำหรับไอคอนในลิงก์ */
+.sidebar svg {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+/* สำหรับหัวข้อเมนู */
+.sidebar .font-bold {
+  font-weight: bold;
+}
+
+/* สำหรับลิงก์ที่เป็นเมนูหลัก */
+.sidebar .main-link {
+  margin-top: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 10px;
+  color: #333;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.sidebar .main-link:hover {
+  background-color: #f0f4f8;
+  color: #000;
+}
+
+/* สำหรับรูปแบบแยกเมนูย่อย */
+.sidebar .sub-menu {
+  margin-top: 10px;
+  padding-left: 20px;
+  border-left: 2px solid #cbd5e0;
 }
 
 .app {

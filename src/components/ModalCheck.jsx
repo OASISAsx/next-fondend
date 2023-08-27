@@ -4,15 +4,15 @@ import { Link } from "@mui/material";
 import { useSession } from "next-auth/react";
 import { Fragment, useState } from "react";
 
-export default function Modal({ isOpenx, setIsOpenx, message }) {
+export default function ModalCheck({ isOpen, setIsOpen, message }) {
   function closeModal() {
-    setIsOpenx(false);
+    setIsOpen(false);
   }
   const { data: session } = useSession();
 
   return (
     <>
-      <Transition appear show={isOpenx} as={Fragment}>
+      <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
           <Transition.Child
             as={Fragment}
@@ -55,7 +55,7 @@ export default function Modal({ isOpenx, setIsOpenx, message }) {
                       type="button"
                       className="btn btn-primary text-black contacts"
                       onClick={closeModal}
-                      href={"/account/" + session?.user.userid}
+                      href={"/login"}
                     >
                       ตกลง, เข้าใจแล้ว!
                     </Link>

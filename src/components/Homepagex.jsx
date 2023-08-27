@@ -9,6 +9,8 @@ const Homepagex = ({ }) => {
   const [error, setError] = useState(null);
   const [show, setshow] = useState(false);
   const [product, setproduct] = useState({});
+  const [userid, setuserid] = useState({});
+  console.log("🚀 ~ file: Homepagex.jsx:13 ~ Homepagex ~ userid:", userid)
   const [query, setQuery] = useState("");
   const api = process.env.API_ENDPOINT;
   const [data, setData] = useState([]);
@@ -48,7 +50,7 @@ const Homepagex = ({ }) => {
   return (
     <>
 
-      <Fragment>
+<Fragment>
         <form className="w-[50%]">
           <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white " >Search</label>
           <div className="relative">
@@ -88,13 +90,15 @@ const Homepagex = ({ }) => {
 
                         <div className="font-bold text-xl  text-primary my-3" align="LEFT" valign="top" style={{ fontSize: '1.2vw ' }}>{item.productname}</div>
                         <div className="pull-right">
+                          
                           <div className="font-bold text-xl  text-primary " style={{ fontSize: '1.0vw ' }}  >{item.productstock}ชิ้น</div>
 
 
-                          <div className="font-bold text-l text-primary  " >
-                            {item.productprice}฿
-
-                          </div>
+                          {item.sellstatus ? (
+                              <span className=" text-red-500 text-l font-semibold">ขายแล้ว</span>
+                            ) : (
+                              <span className="font-bold text-l text-primary  ">{item.productprice}฿</span>
+                            )}
                         </div>
                       </div>
                     </Link>

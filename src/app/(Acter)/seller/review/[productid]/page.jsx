@@ -1,12 +1,13 @@
-'use client'
-import axios from 'axios';
+"use client"
+import React, { useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react';
 import { useParams } from 'next/navigation';
-import React, { useEffect, useState } from 'react'
+import axios from 'axios';
 import Swal from 'sweetalert2';
 import '@/app/(Acter)/user/review/style.css'
+import SideBar from '@/components/SideBar';
 
-const ReviewPage = () => {
+const reviewPage = () => {
     const { data: session } = useSession()
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
@@ -98,7 +99,8 @@ const ReviewPage = () => {
         })
     }
     return (
-        <>
+        <> 
+        {session?.user.roleId !== "seller" && <SideBar />}
             <div class='-mt-14 grid lg:grid-cols-2 lg:gap-2'>
                 <div class="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
                     <div class="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -195,8 +197,9 @@ const ReviewPage = () => {
                     </div>
                 </div>
             </div>
+                
         </>
     )
 }
 
-export default ReviewPage
+export default reviewPage
