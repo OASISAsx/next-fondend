@@ -81,23 +81,24 @@ const managepage = () => {
     <>
 
       <div className="max-w-2xl py-2 lg:max-w-none justify-center">
+      <h2 className="text-xl lg:font-bold tracking-tight dark:text-white xs:text-md xs:font-medium py-4">จัดการผู้ใช้</h2>
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-          <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-              <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+          <table className="w-full text-sm text-left text-gray-500 dark:text-gray-700">
+              <thead className="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-800 dark:text-gray-400">
                 <tr>
                   <th scope="col" className="px-6 py-3">
-                    No.
+                    ลำดับ
                   </th>
                   <th scope="col" className="px-6 py-3">
                     ชื่อ
                   </th>
                   <th scope="col" className="px-6 py-3">
-                    Email
+                    อีเมล
                   </th>
-                  <th scope="col" className="px-6 py-3 ">
+                  <th scope="col" className="px-12 py-3 ">
                     ผู้ใช้งาน
                   </th>
-                  <th scope="col" className="px-6 py-3 ">
+                  <th scope="col" className="px-8 py-3 ">
                     สถานะ
                   </th>
                   <th scope="col" className="px-6 py-3">
@@ -119,11 +120,11 @@ const managepage = () => {
                   <td className="px-6 py-4">
                     {item.username}
                   </td>
-                  <td className="px-6 py-4">
+                  <td className="px-6 py-3">
                     {item.email}
                   </td>
-                  <td className="px-6 py-4">
-                    <select  className="form-select text-white bg-gray-900 rounded-3xl"
+                  <td className="px-7 py-7">
+                    <select  className="form-select text-white bg-gray-700 rounded-3xl"
                     onChange={(e) => handleChangeRole(e, item.userid)}
                       value={item.roleId}
                     > 
@@ -146,7 +147,7 @@ const managepage = () => {
                   </td>
 
                   <td className="px-6 py-4">
-                    {item.createddate}
+                  {moment(item.createddate).locale('th').format('lll' + ' น.')}
                   </td>
 
                   <td >

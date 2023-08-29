@@ -85,7 +85,7 @@ const Homepage = () => {
                       >
                         <img className="product-img" src={item.productimages} />
                         <div>
-                          <p className="font-bold text-xl text-primary" align="left" valign="top" style={{ fontSize: '1.2vw' }}>
+                          <p className="font-bold  text-primary" align="left" valign="top" style={{ fontSize: '1vw' }}>
                             {item.productname}
                           </p>
                           <tr className="pull-right">

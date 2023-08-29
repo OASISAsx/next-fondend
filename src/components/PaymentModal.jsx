@@ -74,7 +74,7 @@ const PaymentModal = ({ isOpen, onClose, detail, userid }) => {
                 Swal.fire({
                     title: 'กำลังทำรายการ!',
                     html: 'โหลดข้อมูล  .',
-                    timer: 2300,
+                    timer: 3000,
                     timerProgressBar: true,
                     didOpen: () => {
                         Swal.showLoading();
@@ -117,7 +117,7 @@ const PaymentModal = ({ isOpen, onClose, detail, userid }) => {
             <div className="w-[60%] h-[80%]  rounded-lg flex flex-col">
                 <button className='px-5 py-2.5 mr-5 justify-center items-center place-self-end text-white' onClick={() => onClose()}>ปิด X</button>
                 <div className="bg-white p-2 rounded-lg">
-                    {detail.paymentstatus === "ทำรายการสำเร็จ" ?
+                    {detail.paymentstatus === "กำลังจัดส่ง" ?
                         <h1 className='text-center text-2xl text-green-800'>ตรวจสอบแล้ว</h1>
                         :
                         <h1 className='text-center text-2xl'>รายละเอียดการชำระเงิน</h1>
@@ -133,7 +133,7 @@ const PaymentModal = ({ isOpen, onClose, detail, userid }) => {
                         <div className='flex flex-col rounded-md'>
                             <span className="text-gray-800 text-lg font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">ชื่อผู้ซื้อ:  {detail.createdby}</span>
                             <span className="text-gray-800 text-lg font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">ชื่อรายการ:  {detail.productname}</span>
-                            <span className="text-gray-800 text-lg font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">ราคา: {detail.productprice}</span>
+                            <span className="text-gray-800 text-lg font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">ราคา: {detail.productprice}฿</span>
                             <span className="text-gray-800 text-lg font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">รหัสการซื้อ: {detail.payid}</span>
                             <span className="text-gray-800 text-lg font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">รหัสผู้ขาย: {detail.byid}</span>
                             <span className="text-gray-800 text-lg font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">รหัสผู้ซื้อ: {detail.userid}</span>
@@ -142,12 +142,13 @@ const PaymentModal = ({ isOpen, onClose, detail, userid }) => {
                             <span className="text-gray-800 text-lg font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">ชื่อ: {user.fristnameuser }  {user.lastnameuser}</span>
                             <span className="text-gray-800 text-lg font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">ที่อยู่: {user.useraddress}</span>
                             <span className="text-gray-800 text-lg font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">จังหวัด: {user.province}</span>
+                            <span className="text-gray-800 text-lg font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">เบอร์โทร: {user.userphone}</span>
                             <span className="text-gray-800 text-lg font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">วันที่ซื้อ: {moment(detail.createddate).locale('th').format('lll')}</span>
                         </div>
                     </div>
                     <hr />
                     <div className="flex-center mt-2">
-                        {detail.paymentstatus === "ทำรายการสำเร็จ" ?
+                        {detail.paymentstatus === "กำลังจัดส่ง" ?
                             <button className='black_btn mr-4' onClick={() => onClose()}>ปิดหน้าต่าง</button>
                             :
                             <button type='submit' className='black_btn mr-4' onClick={() => handleSubmit(detail.payid, detail.productid)}>ยืนยันการตรวจสอบ</button> //เมื่อนำid เข้ามาต้องมาใส่นำฟังก์ชั่นของมัน

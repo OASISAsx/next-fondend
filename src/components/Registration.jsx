@@ -14,6 +14,8 @@ const Registration = ({ userdetail }) => {
     const [imageFile, setImageFile] = useState([])
     const [imageUrl, setImageUrl] = useState([])
     const api = process.env.API_ENDPOINT;
+    const [acceptedTerms, setAcceptedTerms] = useState(false);
+
     const handleChange = (e) => {
 
         if (e.target.name === "file") {
@@ -31,70 +33,85 @@ const Registration = ({ userdetail }) => {
     }
 
     const handleSubmit = async (e) => {
-        let timerInterval
+        e.preventDefault();
+      
+        if (!acceptedTerms || !formData.firstname || !formData.lastname || !formData.phone || !formData.bankname || !formData.bankid || !imageFile.file) {
+          Swal.fire({
+            title: 'ข้อมูลไม่ครบถ้วน',
+            text: 'โปรดกรอกข้อมูลให้ครบถ้วนและอัปโหลดรูปภาพสำเนาบัตรเพื่อดำเนินการต่อ',
+            icon: 'error',
+            confirmButtonColor: '#e74c3c',
+            confirmButtonText: 'ตกลง',
+          });
+          return;
+        }
+      
+        let timerInterval;
         Swal.fire({
-          title: 'กำลังกำเนินการสั่งซื้อ!',
+          title: 'กำลังกำเนินการสมัคร!',
           html: 'โหลดข้อมูล  .',
           timer: 2000,
           timerProgressBar: true,
           didOpen: () => {
-            Swal.showLoading()
-            const b = Swal.getHtmlContainer().querySelector('b')
+            Swal.showLoading();
+            const b = Swal.getHtmlContainer().querySelector('b');
             timerInterval = setInterval(() => {
-             
-            }, 100)
+              // ...
+            }, 100);
           },
           willClose: () => {
-            clearInterval(timerInterval)
+            clearInterval(timerInterval);
           }
-        }).then((result) => {
-          /* Read more about handling dismissals below */
+        }).then(async (result) => {
           if (result.dismiss === Swal.DismissReason.timer) {
-            console.log('I was closed by the timer')
+            console.log('I was closed by the timer');
           }
-        })
-        e.preventDefault();
-        const response = await axios.post(api + "image", imageFile, {
+          
+          const response = await axios.post(api + 'image', imageFile, {
             headers: { 'Content-Type': 'multipart/form-data' }
-        }).then(async resp => {
-            e.preventDefault();
-            const postData = await fetch(api + "sellerdetail", {
-                method: 'POST',
-                body: JSON.stringify({
-                    userid: session?.user.userid,
-                    firstname: formData.firstname,
-                    lastname: formData.lastname,
-                    phone: formData.phone,
-                    bankname: formData.bankname,
-                    bankid: formData.bankid,
-                    personcard: resp.data.data.data,
-
-                }),
-
-                headers: { "content-type": "application/json" }
-            }).then(res => res.json())
-                .then(res => {
-
-                    if (res !== null) {
-                        Swal.fire({
-                            title: 'ลงทะเบียนสำเร็จ',
-                            text: 'กรุณารออนุมัติจากแอดมิน',
-                            icon: 'success',
-                            confirmButtonColor: '#3085d6',
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                window.location.replace("/")
-                            }
-                        })
-                    }
-                })
-        })
-    }
+          });
+      
+          const postData = {
+            userid: session?.user.userid,
+            firstname: formData.firstname,
+            lastname: formData.lastname,
+            phone: formData.phone,
+            bankname: formData.bankname,
+            bankid: formData.bankid,
+            personcard: response.data.data.data,
+          };
+      
+          const registerResponse = await fetch(api + 'sellerdetail', {
+            method: 'POST',
+            body: JSON.stringify(postData),
+            headers: { 'content-type': 'application/json' }
+          });
+      
+          const res = await registerResponse.json();
+      
+          if (res !== null) {
+            Swal.fire({
+              title: 'ลงทะเบียนสำเร็จ',
+              text: 'กรุณารออนุมัติจากแอดมิน',
+              icon: 'success',
+              confirmButtonColor: '#3085d6',
+            }).then((result) => {
+              if (result.isConfirmed) {
+                window.location.replace('/');
+              }
+            });
+          }
+        });
+      };
+      
+      
+      
+    
     return (
         <>
             <Fragment>
             <div className=" flex-auto">
-    <div className="sm:mx-auto sm:w-full sm:max-w-sm -mb-24 text-3xl mr-auto text-zinc-600  ">
+    <div className="sm:mx-auto sm:w-full sm:max-w-sm -mb-24 text-3xl -mt-5 mr-auto text-zinc-600  ">
             ลงทะเบียนเป็นผู้ขาย
                     </div>
 
@@ -227,10 +244,32 @@ const Registration = ({ userdetail }) => {
         />
     </label>
 </div> 
+<div className="flex items-center mb-4">
+  <input
+    id="checkbox-1"
+    type="checkbox"
+    checked={acceptedTerms}
+    onChange={() => setAcceptedTerms(!acceptedTerms)}
+    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+  />
+  <label
+    htmlFor="checkbox-1"
+    className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+  >
+    ยอมรับเงื่อนไข{" "}
+    <a href="#" className="text-blue-600 hover:underline dark:text-blue-500">
+      terms and conditions
+    </a>
+    .
+  </label>
+</div>
+
+
                             <div>
                                 <button
                                     type="submit"
                                     className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                    disabled={!acceptedTerms}
                                 >
                                     ลงทะเบียนเป็นผู้ขาย
                                 </button>

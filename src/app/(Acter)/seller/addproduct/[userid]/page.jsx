@@ -91,13 +91,20 @@ const Addproduct = () => {
               : window.location.replace("/seller/manage/" + session?.user.userid);
           }
         });
+       } else {
+        // แสดงข้อความแจ้งเตือนว่ารูปภาพไม่ครบ
+        Swal.fire({
+          icon: 'warning',
+          title: 'แจ้งเตือน',
+          text: 'กรุณาอัปโหลดรูปภาพทั้ง 4 รูป',
+        });
       }
     } catch (error) {
       console.error(error);
       Swal.fire({
         icon: 'error',
         title: 'เกิดข้อผิดพลาด',
-        text: 'เกิดข้อผิดพลาดในขั้นตอนการเพิ่มรายการสินค้า',
+        text: 'กรุณาอัปโหลดรูปภาพทั้ง 4 รูป',
       });
     }
   };
@@ -166,7 +173,7 @@ const Addproduct = () => {
   
 
 
-  const type = [{ defaultvalue: "ประเภทสินค้า" }, { value: "รองเท้า" }, { value: "เครื่องประดับ" }, { value: "ฟิกเกอร์" }, { value: "ของโบราณ" }, { value: "อื่นๆ" }]
+  const type = [{ value: "ทั่วไป" }, { value: "รองเท้า" }, { value: "เครื่องประดับ" }, { value: "ฟิกเกอร์" }, { value: "ของโบราณ" }, ]
   return (
     <>
 
@@ -178,7 +185,7 @@ const Addproduct = () => {
               <li>เพิ่มสินค้า</li>
               <div className="max-w-2xl py-2 lg:max-w-none justify-center">
                 <div className="relative z-0 w-full mb-6 group  ">
-                  <input type="text" name="productname"
+                  <input type="text" name="productname" maxLength="21"
                     onChange={(e) => handleChange(e)} className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
                   <label htmlFor="productname" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">ชื่อสินค้า</label>
                 </div>
@@ -205,7 +212,9 @@ const Addproduct = () => {
                         <option key={index} value={type.value}>{type.value}</option>
                       )}
                     </select>
+                  
                     <label htmlFor="producttype" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">ประเภทสินค้า</label>
+                    
                   </div>
                 </div>
       

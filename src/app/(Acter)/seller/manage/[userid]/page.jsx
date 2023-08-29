@@ -6,6 +6,8 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
+import moment from 'moment';
+import 'moment/min/locales';
 
 const sellermanage = () => {
     const [error, setError] = useState(null);
@@ -109,11 +111,12 @@ const sellermanage = () => {
         <>
             {session?.user.roleId === "seller" &&
                 <div className="max-w-2xl py-2 lg:max-w-none justify-center ">
+                    <h2 className="text-xl lg:font-bold tracking-tight dark:text-white xs:text-md xs:font-medium py-4">จัดการสินค้า</h2>
                     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
                         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                 <tr>
-                                    <th scope="col" className="px-6 py-3">
+                                    <th scope="col" className="px-2 py-6">
                                         <span className="sr-only">Image</span>
                                     </th>
                                     <th scope="col" className="px-6 py-3">
@@ -142,15 +145,15 @@ const sellermanage = () => {
                                     //ค่าตรงกันจะแสดง สินค้าที่มี
                                     myInt === item.svcid &&
                                     <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-800" key={index}>
-                                        <td className="w-32  p-6">
-                                            <img src={item.productimages} />
-
+                                        <td className="px-6 py-4">
+                                            <img src={item.productimages} className="custom-image" />
                                         </td>
+
                                         <td className="px-6 py-4">
                                             {item.productname}
                                         </td>
                                         <td className="px-6 py-4">
-                                            {item.createddate}
+                                        {moment(item.createddate).locale('th').format('lll' + ' น.')}
                                         </td>
 
                                         <td className="px-6 py-4">
@@ -211,7 +214,8 @@ const sellermanage = () => {
             }
 
             {session?.user.roleId === "admin" &&
-                <div className="max-w-2xl py-2 lg:max-w-none justify-center ">
+                <div className="max-w-2xl py-2 -mt-10 lg:max-w-none justify-center ">
+                     <h2 className="text-xl lg:font-bold tracking-tight  dark:text-white xs:text-md xs:font-medium py-4">จัดการสินค้า</h2>
                     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
                         <table className="w-full text-sm text-left text-gray-800 dark:text-gray-400">
                             <thead className="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-900">
@@ -219,10 +223,10 @@ const sellermanage = () => {
                                     <th scope="col" className="px-6 py-3">
                                         <span className="sr-only">Image</span>
                                     </th>
-                                    <th scope="col" className="px-6 py-3">
+                                    <th scope="col" className="px-4 py-3">
                                         ชื่อสินค้า
                                     </th>
-                                    <th scope="col" className="px-6 py-3">
+                                    <th scope="col" className="px-3 py-3">
                                         วันที่ขาย
                                     </th>
 
@@ -245,15 +249,14 @@ const sellermanage = () => {
                                     //ค่าตรงกันจะแสดง สินค้าที่มี
 
                                     <tr className="bg-gray-100 border-b dark:bg-gray-900 dark:border-gray-800" key={index}>
-                                        <td className="w-32  p-4">
-                                            <img src={item.productimages} />
-
+                                        <td className="px-2 py-4">
+                                            <img src={item.productimages} className="custom-image" />
                                         </td>
                                         <td className="px-6 py-4">
                                             {item.productname}
                                         </td>
-                                        <td className="px-6 py-4">
-                                            {item.createddate}
+                                        <td className="px-2 py-4">
+                                        {moment(item.createddate).locale('th').format('lll' + ' น.')}
                                         </td>
 
                                         <td className="px-6 py-4">
@@ -263,7 +266,7 @@ const sellermanage = () => {
                                             {item.producttype}
                                         </td>
                                         <td className="px-6 py-4">
-                                            <select className="form-select text-white bg-gray-900 rounded-3xl"
+                                            <select className="form-select text-white bg-gray-700 rounded-3xl"
                                                 onChange={(e) => handleChangesST(e, item.productid)}
                                                 value={item.status}
                                                 key={index}
@@ -275,7 +278,7 @@ const sellermanage = () => {
                                                 ))}
                                             </select>
                                         </td>
-                                        <td className="px-16 py-4 ">
+                                        <td className="px-6 py-4 ">
                                             {/* <a href="#" className="font-medium text-blue-600 dark:text-blue-500 mr-10">Edit</a> */}
                                             <Link href={"/seller/editing/" + item.productid}>   <button type="button" class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">แก้ไขสินค้า</button>
                                             </Link>

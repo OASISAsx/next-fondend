@@ -19,11 +19,12 @@ const ReviewPage = () => {
 
     const api = process.env.API_ENDPOINT;
     const { productid } = useParams();
+    console.log("🚀 ~ file: page.jsx:22 ~ ReviewPage ~ productid:", productid)
     // console.log(number(ticketid))
     useEffect(() => {
         loadData(productid)
-        // console.clear()
-    }, []);
+        console.log(productid)
+    }, []); 
 
     const loadData = async (productid) => {
         const response = await axios.get(api + "product/" + productid)
@@ -53,50 +54,70 @@ const ReviewPage = () => {
             ...formData,
             [e.target.name]: e.target.value,
             userid: session?.user.userid,
+            productid: item.productid,
         })
     }
     console.log("formData", formData);
 
     const handleSubmit = async (e) => {
-        Swal.fire({
-            title: 'กำลังทำรายการ',
-            html: '<button class="btn btn-info" type="button" disabled><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Loading...</button>',
-            showConfirmButton: false,
-            allowOutsideClick: false,
-        })
-        e.preventDefault();
-        const response = await axios.post(api + "image", imageFile, {
-            headers: { 'Content-Type': 'multipart/form-data' }
-        }).then(async resp => {
+        try {
+            Swal.fire({
+                title: 'กำลังทำรายการ',
+                html: '<button class="btn btn-info" type="button" disabled><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Loading...</button>',
+                showConfirmButton: false,
+                allowOutsideClick: false,
+            });
+    
             e.preventDefault();
-            console.log("formData", formData);
-            const postData = await fetch(api + "review", {
+    
+            // 1. อัพโหลดรูปภาพ
+            const imageResponse = await axios.post(api + "image", imageFile, {
+                headers: { 'Content-Type': 'multipart/form-data' }
+            });
+    
+            const rvimg = imageResponse.data.data.data;
+    
+            // 2. ส่งรีวิว
+            const postData = {
+                userid: session?.user.userid,
+                productid: item.productid,
+                rvrank: formData.rvrank,
+                rvcomment: formData.rvcomment,
+                rvimg: rvimg,
+                createdby: session?.user.nickname,
+            };
+    
+            const reviewResponse = await fetch(api + "review", {
                 method: 'POST',
-                body: JSON.stringify({
-                    userid: session?.user.userid,
-                    rvrank: formData.rvrank,
-                    rvcomment: formData.rvcomment,
-                    rvimg: resp.data.data.data,
-                    createdby: session?.user.nickname,
-                }),
+                body: JSON.stringify(postData),
                 headers: { "content-type": "application/json" }
-            }, { productid }).then(res => res.json())
-                .then(res => {
-                    if (res !== null) {
-                        Swal.fire({
-                            title: 'รีวิวสำเร็จ',
-                            text: 'กลับไปยังหน้ารีวิว',
-                            icon: 'success',
-                            confirmButtonColor: '#3085d6',
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                window.location.replace("/review")
-                            }
-                        })
+            });
+    
+            if (reviewResponse.ok) {
+                // รีวิวสำเร็จ
+                Swal.fire({
+                    title: 'รีวิวสำเร็จ',
+                    text: 'กลับไปยังหน้ารีวิว',
+                    icon: 'success',
+                    confirmButtonColor: '#3085d6',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.replace("/review");
                     }
-                })
-        })
-    }
+                });
+    
+                // อัพเดทค่า rvrank ของสินค้า
+                await axios.put(api + "product/" + productid, { rvrank: formData.rvrank });
+            } else {
+                // จัดการกรณีไม่สำเร็จ
+                // ...
+            }
+        } catch (error) {
+            // จัดการกรณีเกิดข้อผิดพลาดที่ไม่คาดคิด
+            // ...
+        }
+    };
+    
     return (
         <>
             <div class='-mt-14 grid lg:grid-cols-2 lg:gap-2'>
@@ -198,5 +219,6 @@ const ReviewPage = () => {
         </>
     )
 }
+
 
 export default ReviewPage

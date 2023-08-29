@@ -109,7 +109,7 @@ const Seller = (userid) => {
     return (
         <Fragment>
             <section>
-                <div className="stats shadow flex-center">
+                {/* <div className="stats shadow flex-center">
                     <div className="stat place-items-center">
                         <div className="stat-title">จำนวนผู้ใช้ทั้งหมด</div>
                         <div className="stat-value">{item.length}</div>
@@ -127,10 +127,51 @@ const Seller = (userid) => {
                         <div className="stat-value">{accepted}</div>
                         <div className="stat-desc">รายการ</div>
                     </div>
-                </div>
-                <div className='grid grid-cols-2 gap-2 mt-6'>
+                </div> */}
+                <div className="max-w-full mx-4 py-6 sm:mx-auto sm:px-6 -mt-16 lg:px-8">
+  <div className="sm:flex sm:space-x-4">
+    <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow transform transition-all mb-4 w-full sm:w-1/3 sm:my-8">
+      <div className="bg-white p-5">
+        <div className="sm:flex sm:items-start">
+          <div className="text-center sm:mt-0 sm:ml-2 sm:text-left">
+            <h3 className="text-sm leading-6 font-medium text-gray-400">จำนวนผู้ใช้ทั้งหมด</h3>
+            <p className="text-3xl font-bold text-black">{item.length}</p>
+            <div className="text-sm leading-6 font-medium text-gray-400">เวลาอ้างอิง: {currentTime.toLocaleTimeString()}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow transform transition-all mb-4 w-full sm:w-1/3 sm:my-8">
+      <div className="bg-white p-5">
+        <div className="sm:flex sm:items-start">
+          <div className="text-center sm:mt-0 sm:ml-2 sm:text-left">
+            <h3 className="text-sm leading-6 font-medium text-gray-400">จำนวนพนักงานที่รออนุมัติ</h3>
+            <p className="text-3xl font-bold text-black">{accept}</p>
+            <p className="text-1xl font-bold text-black">รายการ</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow transform transition-all mb-4 w-full sm:w-1/3 sm:my-8">
+      <div className="bg-white p-5">
+        <div className="sm:flex sm:items-start">
+          <div className="text-center sm:mt-0 sm:ml-2 sm:text-left">
+            <h3 className="text-sm leading-6 font-medium text-gray-400">จำนวนพนักงานที่อนุมัติแล้ว</h3>
+            
+            <p className="text-3xl font-bold text-black">{accepted}</p>
+            <p className="text-1xl font-bold text-black">รายการ</p>
+      
+      
+      
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+                <div className='grid grid-cols-2 gap-2 -mt-7'>
                     <div className='flex space-x-2'>
-                        <h2 className="text-2xl mr-6 lg:font-bold tracking-tight dark:text-white xs:text-md xs:font-medium">จัดการพนักงาน</h2>
+                        <h2 className="text-2xl mr-6  lg:font-bold tracking-tight dark:text-white xs:text-md xs:font-medium">จัดการพนักงาน</h2>
                         {/* <ExportPdf
                         name={"ผู้ใช้ในระบบ"}
                         headers={["ไอดีผู้ใช้", "ชื่อผู้ใช้", "ชื่อเล่น", "อีเมล์", "บทบาท", "วันที่สมัคร"]}
@@ -167,7 +208,7 @@ const Seller = (userid) => {
                                     <th scope="col" className="px-6 py-3">
                                         ไอดีผู้ใช้
                                     </th>
-                                    <th scope="col" className="px-6 py-3">
+                                    <th scope="col" className="px-4 py-3">
                                         ชื่อ
                                     </th>
                                     <th scope="col" className="px-6 py-3 ">
@@ -224,7 +265,7 @@ const Seller = (userid) => {
                                             <td className="px-7 py-4">
                                                 {res.userid}</td>
                                             <td className="px-2 py-4">{res.firstname}</td>
-                                            <td className="px-2 py-4">
+                                            <td className="px-4 py-4">
                                                 {res.lastname}
                                             </td>
                                             <td className="px-6 py-4">

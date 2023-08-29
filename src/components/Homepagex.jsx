@@ -80,7 +80,7 @@ const Homepagex = ({ }) => {
              if (!isMatch) {
                return null;
              }
-
+             if (item.status === "ลงขายสินค้าสำเร็จ") {
              return (
                 <div key={index} >
                   <div className="product-items mt-3">
@@ -88,7 +88,7 @@ const Homepagex = ({ }) => {
                       <img className=" product-img" src={item.productimages} />
                       <div>
 
-                        <div className="font-bold text-xl  text-primary my-3" align="LEFT" valign="top" style={{ fontSize: '1.2vw ' }}>{item.productname}</div>
+                        <div className="font-bold   text-primary my-3" align="LEFT" valign="top" style={{ fontSize: '1vw ' }}>{item.productname}</div>
                         <div className="pull-right">
                           
                           <div className="font-bold text-xl  text-primary " style={{ fontSize: '1.0vw ' }}  >{item.productstock}ชิ้น</div>
@@ -106,8 +106,9 @@ const Homepagex = ({ }) => {
                   </div>
                 </div>
              )
+                            }
             })}
-
+          
           </div>
 
 
@@ -116,7 +117,9 @@ const Homepagex = ({ }) => {
         </div>
         <Productpopup isOpen={show} onClose={() => setshow(false)} product={product} />
       </Fragment>
+          
     </>
+          
   );
 };
 

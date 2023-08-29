@@ -26,24 +26,24 @@ const Payment = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [showModal, setShowModal] = useState(false);
   const [showModals, setShowModals] = useState(false);
- 
+
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentTime(new Date());
     }, 1000);
-  
+
     if (userid === undefined) {
       loadData();
     } else {
       loadDataByid(userid);
     }
-  
+
     return () => {
       clearInterval(timer);
     };
   }, [userid]);
 
-  
+
   const loadData = async () => {
     const response = await axios.get(api + "buydetails")
       .then(res => {
@@ -68,53 +68,53 @@ const Payment = () => {
       })
   }
 
-  
- 
-  
+
+
+
   // ...
 
-const updateSellStatusForProduct = async (productid) => {
-  try {
-    const response = await axios.put(api + "product/status/seller/" + productid, { sellstatus: true });
-    const response1 = await axios.put(api + "product/" + productid, { productstock: "0" });
-    console.log("Sell status updated for product:", productid);
-  } catch (error) {
-    console.error("Error updating sell status:", error);
+  const updateSellStatusForProduct = async (productid) => {
+    try {
+      const response = await axios.put(api + "product/status/seller/" + productid, { sellstatus: true });
+      const response1 = await axios.put(api + "product/" + productid, { productstock: "0" });
+      console.log("Sell status updated for product:", productid);
+    } catch (error) {
+      console.error("Error updating sell status:", error);
+    }
   }
-}
 
-// ...
+  // ...
 
-async function handleChangesST(e, payid, productid) {
-  const paymentstatus = e.target.value;
+  async function handleChangesST(e, payid, productid) {
+    const paymentstatus = e.target.value;
 
-  console.log({ paymentstatus }, payid);
-  if (paymentstatus === "กำลังจัดส่ง",paymentstatus === "ทำรายการสำเร็จ") {
-    updateSellStatusForProduct(productid);
-    const updatedProductStock = "0"; // อัพเดทเป็น 0
-    axios.put(api + "buydetail/" + payid, { paymentstatus, productstock: updatedProductStock })
-      .then(res => {
-        if (userid === undefined) {
-          loadData()
-        } else {
-          loadDataByid(userid)
-        }
-        console.log(handleChangesST)
-      })
-  } else {
-    axios.put(api + "buydetail/" + payid, { paymentstatus })
-      .then(res => {
-        if (userid === undefined) {
-          loadData()
-        } else {
-          loadDataByid(userid)
-        }
-        console.log(handleChangesST)
-      })
+    console.log({ paymentstatus }, payid);
+    if (paymentstatus === "กำลังจัดส่ง", paymentstatus === "ทำรายการสำเร็จ") {
+      updateSellStatusForProduct(productid);
+      const updatedProductStock = "0"; // อัพเดทเป็น 0
+      axios.put(api + "buydetail/" + payid, { paymentstatus, productstock: updatedProductStock })
+        .then(res => {
+          if (userid === undefined) {
+            loadData()
+          } else {
+            loadDataByid(userid)
+          }
+          console.log(handleChangesST)
+        })
+    } else {
+      axios.put(api + "buydetail/" + payid, { paymentstatus })
+        .then(res => {
+          if (userid === undefined) {
+            loadData()
+          } else {
+            loadDataByid(userid)
+          }
+          console.log(handleChangesST)
+        })
+    }
   }
-}
 
-// ...
+  // ...
 
 
   async function handleDelete(payid) {
@@ -154,79 +154,60 @@ async function handleChangesST(e, payid, productid) {
   { value: "กำลังจัดส่ง", color: "bg-success  text-white" },
   { value: "สลิปไม่ถูกต้อง", color: "bg-danger text-white" },
   ]
-
+  const statusseller = [{ value: "กำลังดำเนินการ", color: "bg-info text-white" },
+  { value: "กำลังจัดส่ง", color: "bg-success  text-white" },
+  { value: "สลิปไม่ถูกต้อง", color: "bg-danger text-white" },
+  ]
   return (
     <>
       <Fragment>
-        {/* <div className=" stats shadow flex-center py-4 px-6">
-          <div className="stat place-items-center">
-            <div className="stat-title">จำนวนคำสั่งซื้อ</div>
-            <div className="stat-value">{item.length}</div>
-            <div className="stat-desc">เวลาอ้างอิง: {currentTime.toLocaleTimeString()}</div>
-          </div>
-          <div className="stat place-items-center">
-            <div className="stat-title">ยอดรวมการขาย (ราคา)</div>
-            <div className="stat-value text-secondary">{fCurrencyTH(totalSales)}฿</div>
-            <div className="stat-desc text-secondary">บาท</div>
-          </div>
-          <div className="stat place-items-center">
-            <div className="stat-title">เงินที่ได้</div>
-            {session?.user.roleid === "Admin" &&
-              <div className="stat-value">{fCurrencyTH(totalSales * 7 / 100)}฿</div>
-            }
-            {session?.user.roleid === "seller" &&
-              <div className="stat-value">{fCurrencyTH((totalSales) - totalSales * 7 / 100)}฿</div>
-            }
-            <div className="stat-desc">รายได้จาก vat 7% จากยอดขายทั้งหมด</div>
-          </div>
-        </div> */}
-  {/* component */}
-<div className="max-w-full mx-4 py-6 sm:mx-auto sm:px-6 -mt-16 lg:px-8">
-  <div className="sm:flex sm:space-x-4">
-    <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow transform transition-all mb-4 w-full sm:w-1/3 sm:my-8">
-      <div className="bg-white p-5">
-        <div className="sm:flex sm:items-start">
-          <div className="text-center sm:mt-0 sm:ml-2 sm:text-left">
-            <h3 className="text-sm leading-6 font-medium text-gray-400">จำนวนคำสั่งซื้อ</h3>
-            <p className="text-3xl font-bold text-black">{item.length}</p>
-            <div className="text-sm leading-6 font-medium text-gray-400">เวลาอ้างอิง: {currentTime.toLocaleTimeString()}</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow transform transition-all mb-4 w-full sm:w-1/3 sm:my-8">
-      <div className="bg-white p-5">
-        <div className="sm:flex sm:items-start">
-          <div className="text-center sm:mt-0 sm:ml-2 sm:text-left">
-            <h3 className="text-sm leading-6 font-medium text-gray-400">ยอดรวมการขาย (ราคา)</h3>
-            <p className="text-3xl font-bold text-black">{fCurrencyTH(totalSales)}฿</p>
+
+        <div className="max-w-full mx-4 py-6 sm:mx-auto sm:px-6 -mt-16 lg:px-8">
+          <div className="sm:flex sm:space-x-4">
+            <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow transform transition-all mb-4 w-full sm:w-1/3 sm:my-8">
+              <div className="bg-white p-5">
+                <div className="sm:flex sm:items-start">
+                  <div className="text-center sm:mt-0 sm:ml-2 sm:text-left">
+                    <h3 className="text-sm leading-6 font-medium text-gray-400">จำนวนคำสั่งซื้อ</h3>
+                    <p className="text-3xl font-bold text-black">{item.length}</p>
+                    <div className="text-sm leading-6 font-medium text-gray-400">เวลาอ้างอิง: {currentTime.toLocaleTimeString()}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow transform transition-all mb-4 w-full sm:w-1/3 sm:my-8">
+              <div className="bg-white p-5">
+                <div className="sm:flex sm:items-start">
+                  <div className="text-center sm:mt-0 sm:ml-2 sm:text-left">
+                    <h3 className="text-sm leading-6 font-medium text-gray-400">ยอดรวมการขาย (ราคา)</h3>
+                    <p className="text-3xl font-bold text-black">{fCurrencyTH(totalSales)}฿</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow transform transition-all mb-4 w-full sm:w-1/3 sm:my-8">
+              <div className="bg-white p-5">
+                <div className="sm:flex sm:items-start">
+                  <div className="text-center sm:mt-0 sm:ml-2 sm:text-left">
+                    <h3 className="text-sm leading-6 font-medium text-gray-400">เงินที่ได้</h3>
+                    {session?.user.roleId === "admin" &&
+                      <p className="text-3xl font-bold text-black">{fCurrencyTH(totalSales * 7 / 100)}฿</p>
+                    }
+                    {session?.user.roleId === "seller" &&
+                      <p className="text-3xl font-bold text-black">{fCurrencyTH((totalSales) - totalSales * 7 / 100)}฿</p>
+                    }
+                    <h3 className="text-sm leading-6 font-medium text-gray-400">รายได้จาก vat 7% จากยอดขายทั้งหมด</h3>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-    <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow transform transition-all mb-4 w-full sm:w-1/3 sm:my-8">
-      <div className="bg-white p-5">
-        <div className="sm:flex sm:items-start">
-          <div className="text-center sm:mt-0 sm:ml-2 sm:text-left">
-            <h3 className="text-sm leading-6 font-medium text-gray-400">เงินที่ได้</h3>
-            {session?.user.roleId === "admin" &&
-            <p className="text-3xl font-bold text-black">{fCurrencyTH(totalSales * 7 / 100)}฿</p>
-      }
-      {session?.user.roleId === "seller" &&
-            <p className="text-3xl font-bold text-black">{fCurrencyTH((totalSales) - totalSales * 7 / 100)}฿</p>
-      }
-       <h3 className="text-sm leading-6 font-medium text-gray-400">รายได้จาก vat 7% จากยอดขายทั้งหมด</h3>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
         <div className='grid grid-cols-2 gap-2 -mt-10 '>
           <div className='flex space-x-2'>
             <h2 className="text-2xl lg:font-bold tracking-tight dark:text-white xs:text-md xs:font-medium">จัดการการชำระเงิน</h2>
-          
+
           </div>
           <form className="flex items-center">
             <label htmlFor="simple-search" className="sr-only">ค้นหารายการ</label>
@@ -241,127 +222,245 @@ async function handleChangesST(e, payid, productid) {
             </button>
           </form>
         </div>
-        <div className="max-w-2xl py-2 lg:max-w-none justify-center ">
-          <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-            <table className="w-full text-sm text-left text-gray-800 dark:text-gray-400">
-              <thead className="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-900">
-                <tr>
-                  <th scope="col" className="px-6 py-3">
-                    <span className="sr-only">Image</span>
-                  </th>
-                  <th scope="col" className="px-6 py-3">
-                    Product
-                  </th>
-                  <th scope="col" className="px-6 py-3">
-                    ราคา
-                  </th>
-                  <th scope="col" className="px-6 py-3">
-                    ผู้ใช้
-                  </th>
-                  <th scope="col" className="px-6 py-3">
-                    เวลาการซื้อ
-                  </th>
-                  <th scope="col" className="px-6 py-3">
-                    ประเภท
-                  </th>
-                  <th scope="col" className="px-6 py-3">
-                    จำนวน
-                  </th>
-                  <th scope="col" className="px-6 py-3">
-                    สถานะ
-                  </th>
-                  <th scope="col" className="px-6 py-3 ">
-                    Action
-                  </th>
-                  <th scope="col" className="px-6 py-3">
-                    Action
-                  </th>
-                 
-                </tr>
-              </thead>
-              <tbody>
-                {item.map((res, index) => {
-                  const isMatch = res.productname.toLowerCase().includes(query.toLowerCase()) ||
-                    res.createdby.toLowerCase().includes(query.toLowerCase()) ||
-                    res.paymentstatus.toLowerCase().includes(query.toLowerCase()) ||
-                    res.productimages.toLowerCase().includes(query.toLowerCase()) ||
-                    res.producttype.toLowerCase().includes(query.toLowerCase()) ||
-                    res.productstock.toLowerCase().includes(query.toLowerCase())
-                  // กรองเฉพาะรายการที่ตรงกับการค้นหา
-                  if (!isMatch) {
-                    return null;
-                  }
-                  return (
-                    <tr className="bg-gray-100 border-b dark:bg-gray-900 dark:border-gray-800" key={index}>
-                      <td className="w-32 p-4">
-                        <img src={res.productimages} />
+        {session?.user.roleId === "admin" &&
+          <div className="max-w-2xl py-2 lg:max-w-none justify-center ">
+            <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+              <table className="w-full text-sm text-left text-gray-800 dark:text-gray-400">
+                <thead className="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-900">
+                  <tr>
+                    <th scope="col" className="px-6 py-3">
+                      <span className="sr-only">Image</span>
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      ชื่อสินค้า
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      ราคา
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      ผู้ใช้
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      เวลาการซื้อ
+                    </th>
+                    
+                    <th scope="col" className="px-6 py-3">
+                      จำนวน
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      สถานะ
+                    </th>
+                    <th scope="col" className="px-6 py-3 ">
+                      เลขพัสดุ
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      จัดการ
+                    </th>
 
-                      </td>
-                      <td className="px-6 py-4">{res.productname}</td>
-                      <td className="px-6 py-4">{res.productprice}฿</td>
-                      <td className="px-6 py-4">
-                        {res.createdby}
-                      </td>
-                      <td className="px-6 py-4">
-                        {moment(res.createddate).locale('th').format('lll' + ' น.')}
-                      </td>
-                      <td className="px-6 py-4">
-                        {res.producttype}
-                      </td>
-                      <td className="px-6 py-4">
-                        {res.productstock}
-                      </td>
-                      <td className="px-6 py-4">
-                        <select className="form-select text-white bg-gray-900 rounded-3xl"
-                          onChange={(e) => handleChangesST(e, res.payid, res.productid)}
-                          
-                          value={res.paymentstatus}
-                          key={index}
-                          readOnly
-                        >
-                          {status.map((st, index) => (
+                  </tr>
+                </thead>
+                <tbody>
+                  {item.map((res, index) => {
+                    const isMatch = res.productname.toLowerCase().includes(query.toLowerCase()) ||
+                      res.createdby.toLowerCase().includes(query.toLowerCase()) ||
+                      res.paymentstatus.toLowerCase().includes(query.toLowerCase()) ||
+                      res.productimages.toLowerCase().includes(query.toLowerCase()) ||
+                      res.producttype.toLowerCase().includes(query.toLowerCase()) ||
+                      res.productstock.toLowerCase().includes(query.toLowerCase())
+                    // กรองเฉพาะรายการที่ตรงกับการค้นหา
+                    if (!isMatch) {
+                      return null;
+                    }
+                    return (
+                      <tr className="bg-gray-100 border-b dark:bg-gray-900 dark:border-gray-800" key={index}>
+                        <td className="w-32 p-4">
+                          <img src={res.productimages} />
 
-                            <option readOnly key={index} value={st.value}>{st.value}</option>
-                          ))}
-                        </select>
-                        {/* <span class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-green-400 border border-green-400">{res.paymentstatus}</span> */}
+                        </td>
+                        <td className="px-6 py-4">{res.productname}</td>
+                        <td className="px-6 py-4">{res.productprice}฿</td>
+                        <td className="px-6 py-4">
+                          {res.createdby}
+                        </td>
+                        <td className="px-6 py-4">
+                          {moment(res.createddate).locale('th').format('lll' + ' น.')}
+                        </td>
+                        
+                        <td className="px-6 py-4">
+                          {res.productstock}
+                        </td>
+                        <td className="px-6 py-4">
+                          <select className="form-select text-white bg-gray-700 rounded-3xl"
+                            onChange={(e) => handleChangesST(e, res.payid, res.productid)}
 
-                      </td>
-                       <td>
-                     
-                        <button
-                          onClick={() => { setDetail(res), setShowModals(true) }}
+                            value={res.paymentstatus}
+                            key={index}
+                            readOnly
+                          >
+                            {status.map((st, index) => (
 
-                        >แจ้งเลขพัสดุ
-                          <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path fill="currentColor" d="M20 3H4a2 2 0 0 0-2 2v2a2 2 0 0 0 1 1.72V19a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8.72A2 2 0 0 0 22 7V5a2 2 0 0 0-2-2zM4 5h16v2H4zm1 14V9h14v10z"/>
-    <path fill="currentColor" d="M8 11h8v2H8z"/>
-</svg>
-                        </button>
+                              <option readOnly key={index} value={st.value}>{st.value}</option>
+                            ))}
+                          </select>
+                          {/* <span class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-green-400 border border-green-400">{res.paymentstatus}</span> */}
 
-                       
-                      </td>
-                      <td>
-                     
-                        <button
-                          onClick={() => { setDetail(res), setShowModal(true) }}
+                        </td>
+                        <td>
 
-                        >
-                          <FaSearch className="ml-2 text-sky-600"></FaSearch>
-                        </button>
+                          <button
+                            onClick={() => { setDetail(res), setShowModals(true) }}
 
-                        <button onClick={() => handleDelete(res.payid)}>
-                          <FaTrashAlt className="ml-4 text-danger"></FaTrashAlt>
-                        </button>
-                      </td>
-                    </tr>
-                  )
-                })}
-              </tbody>
-            </table>
+                          >แจ้งเลขพัสดุ
+                            <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                              <path fill="currentColor" d="M20 3H4a2 2 0 0 0-2 2v2a2 2 0 0 0 1 1.72V19a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8.72A2 2 0 0 0 22 7V5a2 2 0 0 0-2-2zM4 5h16v2H4zm1 14V9h14v10z" />
+                              <path fill="currentColor" d="M8 11h8v2H8z" />
+                            </svg>
+                          </button>
+
+
+                        </td>
+                        <td>
+
+                          <button
+                            onClick={() => { setDetail(res), setShowModal(true) }}
+
+                          >
+                            <FaSearch className="ml-2 text-sky-600"></FaSearch>
+                          </button>
+
+                          <button onClick={() => handleDelete(res.payid)}>
+                            <FaTrashAlt className="ml-4 text-danger"></FaTrashAlt>
+                          </button>
+                        </td>
+                      </tr>
+                    )
+                  })}
+                </tbody>
+              </table>
+            </div>
           </div>
-        </div>
-       
+        }
+        {session?.user.roleId === "seller" &&
+          <div className="max-w-2xl py-2 lg:max-w-none justify-center ">
+            <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+              <table className="w-full text-sm text-left text-gray-800 dark:text-gray-400">
+                <thead className="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-900">
+                  <tr>
+                    <th scope="col" className="px-6 py-3">
+                      <span className="sr-only">Image</span>
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      ชื่อสินค้า
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      ราคา
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      ผู้ใช้
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      เวลาการซื้อ
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      ประเภท
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      จำนวน
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      สถานะ
+                    </th>
+                    <th scope="col" className="px-6 py-3 ">
+                      แจ้งเลขพัสดุ
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      จัดการ
+                    </th>
+
+                  </tr>
+                </thead>
+                <tbody>
+                  {item.map((res, index) => {
+                    const isMatch = res.productname.toLowerCase().includes(query.toLowerCase()) ||
+                      res.createdby.toLowerCase().includes(query.toLowerCase()) ||
+                      res.paymentstatus.toLowerCase().includes(query.toLowerCase()) ||
+                      res.productimages.toLowerCase().includes(query.toLowerCase()) ||
+                      res.producttype.toLowerCase().includes(query.toLowerCase()) ||
+                      res.productstock.toLowerCase().includes(query.toLowerCase())
+                    // กรองเฉพาะรายการที่ตรงกับการค้นหา
+                    if (!isMatch) {
+                      return null;
+                    }
+                    return (
+                      <tr className="bg-gray-100 border-b dark:bg-gray-900 dark:border-gray-800" key={index}>
+                        <td className="px-6 py-4">
+                          <img src={res.productimages} className="payment-image" />
+                        </td>
+                        <td className="px-6 py-4">{res.productname}</td>
+                        <td className="px-6 py-4">{res.productprice}฿</td>
+                        <td className="px-6 py-4">
+                          {res.createdby}
+                        </td>
+                        <td className="px-6 py-4">
+                          {moment(res.createddate).locale('th').format('lll' + ' น.')}
+                        </td>
+                        <td className="px-6 py-4">
+                          {res.producttype}
+                        </td>
+                        <td className="px-6 py-4">
+                          {res.productstock}
+                        </td>
+                        <td className="px-6 py-4">
+                          <select className="form-select text-white bg-gray-700 rounded-3xl"
+                            onChange={(e) => handleChangesST(e, res.payid, res.productid)}
+
+                            value={res.paymentstatus}
+                            key={index}
+                            readOnly
+                          >
+                            {statusseller.map((st, index) => (
+
+                              <option readOnly key={index} value={st.value}>{st.value}</option>
+                            ))}
+                          </select>
+                          {/* <span class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-green-400 border border-green-400">{res.paymentstatus}</span> */}
+
+                        </td>
+                        <td>
+
+                          <button
+                            onClick={() => { setDetail(res), setShowModals(true) }}
+
+                          >
+                            <svg className='items-center justify-center ml-10' width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                              <path fill="currentColor" d="M20 3H4a2 2 0 0 0-2 2v2a2 2 0 0 0 1 1.72V19a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8.72A2 2 0 0 0 22 7V5a2 2 0 0 0-2-2zM4 5h16v2H4zm1 14V9h14v10z" />
+                              <path fill="currentColor" d="M8 11h8v2H8z" />
+                            </svg>
+                          </button>
+
+
+                        </td>
+                        <td>
+
+                          <button
+                            onClick={() => { setDetail(res), setShowModal(true) }}
+
+                          >
+                            <FaSearch className="ml-2 text-sky-600"></FaSearch>
+                          </button>
+
+                          <button onClick={() => handleDelete(res.payid)}>
+                            <FaTrashAlt className="ml-4 text-danger"></FaTrashAlt>
+                          </button>
+                        </td>
+                      </tr>
+                    )
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        }
         <CheckSlip isOpen={showModals} onClose={() => setShowModals(false)} details={detail} payid={detail.payid} />
         <PaymentModal isOpen={showModal} onClose={() => setShowModal(false)} detail={detail} userid={detail.userid} productid={detail.productid} />
 

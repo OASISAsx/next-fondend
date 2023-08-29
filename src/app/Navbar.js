@@ -30,6 +30,7 @@ export default function Navbar() {
   const { data: session } = useSession()
   console.log("🚀 ~ file: Navbar.js:31 ~ Navbar ~ session:", session)
   const [userAvatar, setUserAvatar] = useState(null);
+  
   console.log("🚀 ~ file: Navbar.js:32 ~ Navbar ~ userAvatar:", userAvatar)
   
 
@@ -105,7 +106,7 @@ export default function Navbar() {
 
                     type="button"
                     href={session?.user.roleId === 'user' ? '/user/beaseller/' + session.user.userid : ''}
-                    className="btn btn-error rounded-full  navprofile btnseller bg-yellow-300"
+                    className="btn btn-error  navprofile btnseller text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
                   >
                     <BiCartDownload className="w-6 h-6 " />
                     <p className='navprofilename'>ลงทะเบียนขาย</p>
@@ -187,11 +188,12 @@ export default function Navbar() {
                 <>
 
                   <Menu as="div" className="">
-                    <div>
+                    <div className="flex">
+                      <h6 className='mr-5 blue_gradient head_tex text-lg text-center'>{session.user.username} </h6>
                       <Menu.Button className="avatar">
                         <span className="sr-only">Open user menu</span>
                         {userAvatar ? (
-                <img className="shadowavatar w-10 h-10 rounded-full flex" src={userAvatar} alt={session.user.username} />
+                <img className="shadowavatar w-10 h-10 rounded-full flex" src={userAvatar}  />
               ) : (
                 <span>No Avatar</span>
               )}
@@ -233,17 +235,7 @@ export default function Navbar() {
 
                           )}
                         </Menu.Item>
-                        <Menu.Item>
-                          {({ active }) => (
-                            <Link
-                              href={"/seller/history/" + session?.user.userid}
-                              className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                            >
-                              ข้อความ
-                            </Link>
-
-                          )}
-                        </Menu.Item>
+                        
                         <Menu.Item>
                           {({ active }) => (
                             <a
