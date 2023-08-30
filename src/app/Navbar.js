@@ -189,14 +189,14 @@ export default function Navbar() {
 
                   <Menu as="div" className="">
                     <div className="flex">
-                      <h6 className='mr-5 blue_gradient head_tex text-lg text-center'>{session.user.username} </h6>
+                      <h6 className='mr-5 blue_gradient head_tex text-base text-center font-semibold'>{session.user.username} </h6>
                       <Menu.Button className="avatar">
                         <span className="sr-only">Open user menu</span>
-                        {userAvatar ? (
-                <img className="shadowavatar w-10 h-10 rounded-full flex" src={userAvatar}  />
-              ) : (
-                <span>No Avatar</span>
-              )}
+                          {userAvatar ? (
+                  <img className="shadowavatar w-10 h-10 rounded-full flex" src={userAvatar}  />
+                ) : (
+                  <span>No Avatar</span>
+                )}
 
                       </Menu.Button>
                     </div>

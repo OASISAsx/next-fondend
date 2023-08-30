@@ -2,7 +2,9 @@
 import axios from 'axios';
 import React, { Fragment, useEffect, useState } from 'react'
 
+
 const SellerModal = ({ isOpen, onClose, seller, userid, }) => {
+  console.log("🚀 ~ file: SellerModal.jsx:7 ~ SellerModal ~ userid:", userid)
   const [SellerDetail, setSellerDetail] = useState({});
   const [register, setRegister] = useState();
   console.log("🚀 ~ file: SellerModal.jsx:8 ~ SellerModal ~ register:", register)
@@ -31,7 +33,7 @@ const SellerModal = ({ isOpen, onClose, seller, userid, }) => {
 
   if (!isOpen) return null;
   return (
-    
+    <>
   
     <div className='modal-portal fixed top-0 left-0 w-screen h-screen bg-black/50 bg-opacity-25 flex justify-center items-center backdrop-blur-sm'>
       <div className="relative w-[30%] h-[60%]  rounded-lg flex flex-col">
@@ -65,8 +67,11 @@ const SellerModal = ({ isOpen, onClose, seller, userid, }) => {
         </div>
       </div>
     </div>
-    
+   
+
+    </>
   )
+  
 }
 
 export default SellerModal

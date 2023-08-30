@@ -11,6 +11,8 @@ import PaymentModal from '@/components/PaymentModal';
 import { fCurrencyTH } from '@/app/functions/formatNumber';
 import CheckSlip from '@/components/CheckSilp';
 import Productpopup from '@/components/Productpopup';
+import ExportExel from '@/components/ExportExel';
+import ExportPdf from '@/components/ExportPdf';
 
 
 const Payment = () => {
@@ -207,7 +209,17 @@ const Payment = () => {
         <div className='grid grid-cols-2 gap-2 -mt-10 '>
           <div className='flex space-x-2'>
             <h2 className="text-2xl lg:font-bold tracking-tight dark:text-white xs:text-md xs:font-medium">จัดการการชำระเงิน</h2>
-
+            <ExportPdf
+              name={"การชำระเงิน"}
+              headers={["ไอดีการซื้อ", "ไอดีผู้ใช้", "ไอดีผู้ขาย", "สถานะการซื้อ", "ชื่อรายการ", "ราคา", "ชื่อผู้ซื้อ"]}
+              data={item.map(({ payid, userid, byid, paymentstatus, productname, productprice, createdby }) => {
+                return [payid, userid, byid, paymentstatus, productname, productprice, createdby]
+              })}
+            />
+            <ExportExel
+              name={"การชำระเงิน"}
+              data={item}
+            />
           </div>
           <form className="flex items-center">
             <label htmlFor="simple-search" className="sr-only">ค้นหารายการ</label>
@@ -307,14 +319,13 @@ const Payment = () => {
                         </td>
                         <td>
 
-                          <button
+                          <button className='flex'
                             onClick={() => { setDetail(res), setShowModals(true) }}
 
-                          >แจ้งเลขพัสดุ
+                          >เลขพัสดุสินค้า
                             <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                              <path fill="currentColor" d="M20 3H4a2 2 0 0 0-2 2v2a2 2 0 0 0 1 1.72V19a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8.72A2 2 0 0 0 22 7V5a2 2 0 0 0-2-2zM4 5h16v2H4zm1 14V9h14v10z" />
-                              <path fill="currentColor" d="M8 11h8v2H8z" />
-                            </svg>
+    <path fill="#000000" d="m17.578 4.432l-2-1.05C13.822 2.461 12.944 2 12 2s-1.822.46-3.578 1.382l-.321.169l8.923 5.099l4.016-2.01c-.646-.732-1.688-1.279-3.462-2.21Zm4.17 3.532l-3.998 2V13a.75.75 0 0 1-1.5 0v-2.287l-3.5 1.75v9.441c.718-.179 1.535-.607 2.828-1.286l2-1.05c2.151-1.129 3.227-1.693 3.825-2.708c.597-1.014.597-2.277.597-4.8v-.117c0-1.893 0-3.076-.252-3.978ZM11.25 21.904v-9.44l-8.998-4.5C2 8.866 2 10.05 2 11.941v.117c0 2.525 0 3.788.597 4.802c.598 1.015 1.674 1.58 3.825 2.709l2 1.049c1.293.679 2.11 1.107 2.828 1.286ZM2.96 6.641l9.04 4.52l3.411-1.705l-8.886-5.078l-.103.054c-1.773.93-2.816 1.477-3.462 2.21Z"/>
+</svg>
                           </button>
 
 
@@ -428,14 +439,13 @@ const Payment = () => {
                         </td>
                         <td>
 
-                          <button
+                          <button className='flex items-center'
                             onClick={() => { setDetail(res), setShowModals(true) }}
 
                           >
-                            <svg className='items-center justify-center ml-10' width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                              <path fill="currentColor" d="M20 3H4a2 2 0 0 0-2 2v2a2 2 0 0 0 1 1.72V19a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8.72A2 2 0 0 0 22 7V5a2 2 0 0 0-2-2zM4 5h16v2H4zm1 14V9h14v10z" />
-                              <path fill="currentColor" d="M8 11h8v2H8z" />
-                            </svg>
+                           <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path fill="currentColor" d="M5 21q-.825 0-1.413-.588T3 19V6.525q0-.35.113-.675t.337-.6L4.7 3.725q.275-.35.687-.538T6.25 3h11.5q.45 0 .863.188t.687.537l1.25 1.525q.225.275.338.6t.112.675v4.9q-.475-.175-.975-.288T19 11.026q-.825 0-1.588.188T16 11.8V8H8v8l4-2l1.45.725q-.2.525-.325 1.088T13 16.974q0 1.125.4 2.163T14.55 21H5Zm13 0v-3h-3v-2h3v-3h2v3h3v2h-3v3h-2ZM5.4 6h13.2l-.85-1H6.25L5.4 6Z"/>
+</svg>
                           </button>
 
 

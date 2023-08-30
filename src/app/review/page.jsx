@@ -104,11 +104,11 @@ const review = () => {
                                                     {userAvatar[index] ? (
                                                         <img className="shadowavatar w-14 h-14 rounded-full flex" src={userAvatar[index].Avatar} />
                                                     ) : (
-                                                        <img className="shadowavatar w-20 h-20 rounded-full flex" src={"https://www.google.com/url?sa=i&url=https%3A%2F%2Futtaradit.cdd.go.th%2Fabout-us%2Fpersonnel%2Fuser-icon-flat-isolated-on-white-background-user-symbol-vector-illustration&psig=AOvVaw0MJpwRX2m7Q0FpODHbb6yt&ust=1693210836467000&source=images&cd=vfe&opi=89978449&ved=0CBAQjRxqFwoTCMizqIW0_IADFQAAAAAdAAAAABAE"} />
+                                                        <img className="shadowavatar w-20 h-20 rounded-full flex " src={"https://www.google.com/url?sa=i&url=https%3A%2F%2Futtaradit.cdd.go.th%2Fabout-us%2Fpersonnel%2Fuser-icon-flat-isolated-on-white-background-user-symbol-vector-illustration&psig=AOvVaw0MJpwRX2m7Q0FpODHbb6yt&ust=1693210836467000&source=images&cd=vfe&opi=89978449&ved=0CBAQjRxqFwoTCMizqIW0_IADFQAAAAAdAAAAABAE"} />
                                                     )}
 
                                                     <div className="space-y-1 ml-4 text-lg font-medium dark:text-white">
-                                                        <p className="block text-md text-slate-800">{userdetail.nickname}</p>
+                                                        <p className="block text-md text-slate-800 font-semibold blue_gradient">{userdetail.nickname}</p>
                                                     </div>
                                                 </div>
                                             }

@@ -29,13 +29,28 @@ const Addproduct = () => {
 
   console.log(userid)
   const handleSubmit = async (e) => {
-    Swal.fire({
-      title: 'กำลังทำรายการ',
-      html: '<button class="btn btn-primary" type="button" disabled><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Loading...</button>',
-      showConfirmButton: false,
-      allowOutsideClick: false,
-    });
-
+    let timerInterval
+Swal.fire({
+  title: 'กำลังเพิ่มสินค้า!',
+  html: 'กรุณารอซักครู่ อัพโหลดสินค้า...',
+  
+  timerProgressBar: true,
+  didOpen: () => {
+    Swal.showLoading()
+    const b = Swal.getHtmlContainer().querySelector('b')
+    timerInterval = setInterval(() => {
+     
+    }, 100)
+  },
+  willClose: () => {
+    clearInterval(timerInterval)
+  }
+}).then((result) => {
+  /* Read more about handling dismissals below */
+  if (result.dismiss === Swal.DismissReason.timer) {
+    console.log('I was closed by the timer')
+  }
+});
     e.preventDefault();
 
     try {
@@ -62,6 +77,7 @@ const Addproduct = () => {
         method: 'POST',
         body: JSON.stringify({
           svcid: session?.user.userid,
+          userseller:session?.user.username,
           productname: item.productname,
           productdesc: item.productdesc,
           productstock: item.productstock,
@@ -86,7 +102,7 @@ const Addproduct = () => {
           confirmButtonColor: '#3085d6',
         }).then((result) => {
           if (result.isConfirmed) {
-            session?.user.roleId === "Admin"
+            session?.user.roleId === "admin"
               ? window.location.replace("/admin/manage")
               : window.location.replace("/seller/manage/" + session?.user.userid);
           }

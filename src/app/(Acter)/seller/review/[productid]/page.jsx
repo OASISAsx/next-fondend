@@ -59,12 +59,27 @@ const reviewPage = () => {
     console.log("formData", formData);
 
     const handleSubmit = async (e) => {
-        Swal.fire({
-            title: 'กำลังทำรายการ',
-            html: '<button class="btn btn-info" type="button" disabled><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Loading...</button>',
-            showConfirmButton: false,
-            allowOutsideClick: false,
-        })
+        let timerInterval;
+    Swal.fire({
+      title: 'กำลังกำเนินการสั่งซื้อ!',
+      html: 'โหลดข้อมูล...',
+      timer: 2300,
+      timerProgressBar: true,
+      didOpen: () => {
+        Swal.showLoading();
+        const b = Swal.getHtmlContainer().querySelector('b');
+        timerInterval = setInterval(() => {
+          // เรียกใช้งานได้ตามความต้องการ
+        }, 100);
+      },
+      willClose: () => {
+        clearInterval(timerInterval);
+      }
+    }).then(async (result) => {
+      if (result.dismiss === Swal.DismissReason.timer) {
+        console.log('I was closed by the timer');
+      }
+    });
         e.preventDefault();
         const response = await axios.post(api + "image", imageFile, {
             headers: { 'Content-Type': 'multipart/form-data' }

@@ -61,11 +61,26 @@ const ReviewPage = () => {
 
     const handleSubmit = async (e) => {
         try {
+            let timerInterval;
             Swal.fire({
-                title: 'กำลังทำรายการ',
-                html: '<button class="btn btn-info" type="button" disabled><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Loading...</button>',
-                showConfirmButton: false,
-                allowOutsideClick: false,
+              title: 'กำลังกำเนินการสั่งซื้อ!',
+              html: 'โหลดข้อมูล...',
+              timer: 3000,
+              timerProgressBar: true,
+              didOpen: () => {
+                Swal.showLoading();
+                const b = Swal.getHtmlContainer().querySelector('b');
+                timerInterval = setInterval(() => {
+                  // เรียกใช้งานได้ตามความต้องการ
+                }, 100);
+              },
+              willClose: () => {
+                clearInterval(timerInterval);
+              }
+            }).then(async (result) => {
+              if (result.dismiss === Swal.DismissReason.timer) {
+                console.log('I was closed by the timer');
+              }
             });
     
             e.preventDefault();

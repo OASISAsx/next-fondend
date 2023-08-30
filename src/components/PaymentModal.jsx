@@ -74,7 +74,6 @@ const PaymentModal = ({ isOpen, onClose, detail, userid }) => {
                 Swal.fire({
                     title: 'กำลังทำรายการ!',
                     html: 'โหลดข้อมูล  .',
-                    timer: 3000,
                     timerProgressBar: true,
                     didOpen: () => {
                         Swal.showLoading();

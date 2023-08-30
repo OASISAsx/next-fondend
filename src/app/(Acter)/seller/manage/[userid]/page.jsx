@@ -280,7 +280,7 @@ const sellermanage = () => {
                                         </td>
                                         <td className="px-6 py-4 ">
                                             {/* <a href="#" className="font-medium text-blue-600 dark:text-blue-500 mr-10">Edit</a> */}
-                                            <Link href={"/seller/editing/" + item.productid}>   <button type="button" class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">แก้ไขสินค้า</button>
+                                            <Link href={"/admin/editing/" + item.productid}>   <button type="button" class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">แก้ไขสินค้า</button>
                                             </Link>
                                             {/* <button onClick={() => handleDelete(item.productid)} className="font-medium text-red-600 dark:text-blue-500  px-6 py-4">Remove</button> */}
                                             <button type="button" onClick={() => handleDelete(item.productid)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">ลบสินค้า</button>

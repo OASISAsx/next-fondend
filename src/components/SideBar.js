@@ -82,12 +82,11 @@ const SideBar = () => {
           <svg className="w-6 h-6 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
           </svg>
-          <span className="ml-2 text-sm font-medium">Home</span>
+          <span className="ml-2 text-sm font-medium">หน้าแรก</span>
         </Link>
         <a className="flex items-center w-full h-12 px-3 mt-2 rounded hover:bg-gray-300" href="/admin/seller">
-        <svg className="w-6 h-6 stroke-current" xmlns="http://www.w3.org/2000/svg">
-    <path fill="currentColor" d="M8 19H6v-2a3.003 3.003 0 0 1 3-3h5v2H9a1.001 1.001 0 0 0-1 1zm4-6a4 4 0 1 1 4-4a4.005 4.005 0 0 1-4 4zm0-6a2 2 0 1 0 2 2a2.002 2.002 0 0 0-2-2zm8 13a4 4 0 1 1 4-4a4.005 4.005 0 0 1-4 4zm0-6a2 2 0 1 0 2 2a2.002 2.002 0 0 0-2-2zm6 12h-2v-2a1.001 1.001 0 0 0-1-1h-6a1.001 1.001 0 0 0-1 1v2h-2v-2a3.003 3.003 0 0 1 3-3h6a3.003 3.003 0 0 1 3 3z"/>
-    <path fill="currentColor" d="M8 30H4a2.002 2.002 0 0 1-2-2V4a2.002 2.002 0 0 1 2-2h4v2H4v24h4zm20 0h-4v-2h4V4h-4V2h4a2.002 2.002 0 0 1 2 2v24a2.002 2.002 0 0 1-2 2z"/>
+        <svg width="512" height="512" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path fill="#000000" d="M7 4C4.8 4 3 5.8 3 8s1.8 4 4 4s4-1.8 4-4s-1.8-4-4-4m0 6c-1.1 0-2-.9-2-2s.9-2 2-2s2 .9 2 2s-.9 2-2 2m0 4c-3.9 0-7 1.8-7 4v2h11v-2H2c0-.6 1.8-2 5-2c1.8 0 3.2.5 4 1v-2.2c-1.1-.5-2.5-.8-4-.8M22 4h-7c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h7c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2m-6 14h-1V6h1v12m6 0h-4V6h4v12Z"/>
 </svg>
           <span className="ml-2 text-sm font-medium">ใช้งานการขาย</span>
         </a>
@@ -107,14 +106,18 @@ const SideBar = () => {
           <span className="ml-2 text-sm font-medium">จัดการสินค้า</span>
         </a>
         <a className="flex items-center w-full h-12 px-3 mt-2 rounded hover:bg-gray-300" href="/admin/payment">
-          <svg className="w-6 h-6 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
-          </svg>
+        <svg width="512" height="512" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg">
+    <g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 7.5v-2a1 1 0 0 0-1-1H1.5a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1H11a1 1 0 0 0 1-1V10M3.84 2L9.51.52a.49.49 0 0 1 .61.36L10.4 2"/>
+        <rect width="3.5" height="2.5" x="10" y="7.5" rx=".5"/>
+    </g>
+</svg>
           <span className="ml-2 text-sm font-medium">ชำระเงิน</span>
         </a>
         
       </div>
     </div>
+    <br></br>
     <Link className="flex items-center justify-center w-full h-16 mt-auto bg-gray-200 hover:bg-gray-300" href={"/admin/account"+session?.user.userid}>
       <svg className="w-6 h-6 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />

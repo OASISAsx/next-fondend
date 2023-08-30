@@ -97,83 +97,98 @@ const Popupbuyid = ({ }) => {
 
   }
   const handleSubmit = async (e) => {
-    // console.log(formData)
-    // e.preventDefault();
-
-    let timerInterval
-Swal.fire({
-  title: 'กำลังกำเนินการสั่งซื้อ!',
-  html: 'โหลดข้อมูล  .',
-  timer: 2300,
-  timerProgressBar: true,
-  didOpen: () => {
-    Swal.showLoading()
-    const b = Swal.getHtmlContainer().querySelector('b')
-    timerInterval = setInterval(() => {
-     
-    }, 100)
-  },
-  willClose: () => {
-    clearInterval(timerInterval)
-  }
-}).then((result) => {
-  /* Read more about handling dismissals below */
-  if (result.dismiss === Swal.DismissReason.timer) {
-    console.log('I was closed by the timer')
-  }
-})
     e.preventDefault();
-    const response = await axios.post(api + "image", imageFile, {
-      headers: { 'Content-Type': 'multipart/form-data' }
-    }).then(async resp => {
-      // console.log("formData", formData);
-      e.preventDefault();
-
-      const postData = await fetch(api + "buydetail", {
-        method: 'POST',
-        body: JSON.stringify({
-          userid: session?.user.userid,
-          productid: item.productid,
-          byid: item.svcid,
-          payslip: resp.data.data.data,
-          productname: item.productname,
-          productprice: item.productprice,
-          productimages:item.productimages,
-          producttype: item.producttype,
-          productdesc: item.productdesc,
-          productstock: item.productstock,
-          createdby: session?.user.nickname,
-        }),
-        headers: { "content-type": "application/json" }
-      }).then(res => res.json())
-        .then(res => {
-
-          if (res !== null) {
-            Swal.fire({
-              title: 'ชำระเงินสำเร็จ',
-              text: 'กลับไปยังหน้าประวัติการซื้อ',
-              icon: 'success',
-              confirmButtonColor: '#3085d6',
-            }).then((result) => {
-              if (result.isConfirmed) {
-                {session?.user.roleId === "user" && (
-                window.location.replace("/user/history/" + session?.user.userid)
-            )}
-            {session?.user.roleId === "seller" && (
-                window.location.replace("/seller/history/" + session?.user.userid)
-                )}
-                {session?.user.roleId === "admin" && (
-                window.location.replace("/admin/history/" + session?.user.userid)
-                )}
+     
+    let timerInterval;
+    Swal.fire({
+      title: 'กำลังกำเนินการสั่งซื้อ!',
+      html: 'โหลดข้อมูล...',
+      timer: 2300,
+      timerProgressBar: true,
+      didOpen: () => {
+        Swal.showLoading();
+        const b = Swal.getHtmlContainer().querySelector('b');
+        timerInterval = setInterval(() => {
+          // เรียกใช้งานได้ตามความต้องการ
+        }, 100);
+      },
+      willClose: () => {
+        clearInterval(timerInterval);
+      }
+    }).then(async (result) => {
+      if (result.dismiss === Swal.DismissReason.timer) {
+        console.log('I was closed by the timer');
+      }
+    });
+  
+    try {
+      const response = await axios.post(api + "image", imageFile, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      });
+  
+      if (response.status === 200) {
+        const postDataResponse = await fetch(api + "buydetail", {
+          method: 'POST',
+          body: JSON.stringify({
+            userid: session?.user.userid,
+            productid: item.productid,
+            byid: item.svcid,
+            payslip: response.data.data.data,
+            productname: item.productname,
+            productprice: item.productprice,
+            productimages: item.productimages,
+            producttype: item.producttype,
+            productdesc: item.productdesc,
+            productstock: item.productstock,
+            createdby: session?.user.nickname,
+          }),
+          headers: { "content-type": "application/json" }
+        });
+  
+        if (postDataResponse.ok) {
+          Swal.fire({
+            title: 'ชำระเงินสำเร็จ',
+            text: 'กลับไปยังหน้าประวัติการซื้อ',
+            icon: 'success',
+            confirmButtonColor: '#3085d6',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              if (session?.user.roleId === "user") {
+                window.location.replace("/user/history/" + session?.user.userid);
+              } else if (session?.user.roleId === "seller") {
+                window.location.replace("/seller/history/" + session?.user.userid);
+              } else if (session?.user.roleId === "admin") {
+                window.location.replace("/admin/history/" + session?.user.userid);
               }
-            })
-          }
-        })
-    })
-
-    // const image = { [e.target.name]: e.target.files[0] }
-
-  }
+            }
+          });
+        } else {
+          Swal.fire({
+            title: 'เกิดข้อผิดพลาด',
+            text: 'อัพโหลดสลีป โปรดลองใหม่อีกครั้ง',
+            icon: 'error',
+            confirmButtonColor: '#3085d6',
+          });
+        }
+      } else {
+        Swal.fire({
+          title: 'เกิดข้อผิดพลาด',
+          text: 'ไม่สามารถอัปโหลดรูปภาพได้ โปรดลองใหม่อีกครั้ง',
+          icon: 'error',
+          confirmButtonColor: '#3085d6',
+        });
+      }
+    } catch (error) {
+      console.error("An error occurred:", error);
+      Swal.fire({
+        title: 'เกิดข้อผิดพลาด',
+        text: 'อัพโหลดสลีป ลองใหม่อีกครั้ง',
+        icon: 'error',
+        confirmButtonColor: '#3085d6',
+      });
+    }
+  };
+  
 
   return (
     <>

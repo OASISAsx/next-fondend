@@ -1,12 +1,13 @@
 "use client"
-import React from 'react'
 import Editing from '@/app/(Acter)/seller/editing/[productid]/page'
+import React from 'react'
 
 
-const Editing = () => {
+
+const editing = () => {
     return (
         <Editing/> 
     )
 }
 
-export default Editing
+export default editing

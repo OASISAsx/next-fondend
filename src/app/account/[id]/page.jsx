@@ -225,12 +225,20 @@ const accountpage = ({ user }) => {
                   {/* <img
                     src={imageUrl}
                     className="absolute inset-0 object-cover w-full h-full opacity-50 image-overlay"
-                  /> */} {imageUrl === userAvatar ? (
-  <img className="absolute inset-0 object-cover w-full h-full opacity-50 image-overlay" src={imageUrl} />
-  ) : (
+                  /> */} 
     <img className="absolute inset-0 object-cover w-full h-full opacity-50 image-overlay" src={userAvatar}  />
-  )}
+    {imageUrl && (
+  <img
+    className="absolute inset-0 object-cover w-full h-full image-overlay"
+    src={imageUrl}
+    
+  />
+)}
+
+
   
+  
+   
   
 
                   <div className="flex flex-col items-center justify-center pt-5 pb-6">
