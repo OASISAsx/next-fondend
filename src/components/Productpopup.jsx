@@ -78,7 +78,10 @@ const Productpopup = ({ isOpen, isOpenx, onClose, product }) => {
     <div className='modal-portal fixed top-0 left-0 w-screen h-screen bg-black/50 bg-opacity-25 flex justify-center items-center backdrop-blur-sm'>
       <div className="relative w-[80%] h-[80%] rounded-lg">
         <section className="text-gray-700 body-font overflow-hidden bg-white justify-between pop">
-          <div className=" px-44 py-10 mx-auto ">
+          <button className='flex px-5 py-5 ml-auto font-semibold justify-center items-center  text-black' onClick={() => onClose()}><svg width="20" height="20" viewBox="0 0 1216 1312" xmlns="http://www.w3.org/2000/svg">
+    <path fill="#000000" d="M1202 1066q0 40-28 68l-136 136q-28 28-68 28t-68-28L608 976l-294 294q-28 28-68 28t-68-28L42 1134q-28-28-28-68t28-68l294-294L42 410q-28-28-28-68t28-68l136-136q28-28 68-28t68 28l294 294l294-294q28-28 68-28t68 28l136 136q28 28 28 68t-28 68L880 704l294 294q28 28 28 68z"/>
+</svg></button>
+          <div className=" px-44 py-10 -mt-10 mx-auto ">
             <div className="lg:w-3/1 mx-auto flex flex-wrap mt-10">
               <div className="absolute left-3 ml-36 top-1/2 transform -translate-y-1/2 h-44">
                 <button className="icona contacts  " onClick={handlePreviousImage}>
@@ -165,14 +168,14 @@ const Productpopup = ({ isOpen, isOpenx, onClose, product }) => {
                       user.useraddress ? (
                         <Link
                           href={`/payment/${product.productid}/${session?.user.userid}`}
-                          className="leading-relaxed ml-auto mb-10 flex w-20 justify-center rounded-md bg-green-600 px-3 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
+                          type="button" class="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800  rounded-lg text-sm px-5 py-2.5 text-center ml-auto font-semibold"
                         >
                           <i className="bi bi-cart4 text-sm font-semibold" />
                           ซื้อสินค้า
                         </Link>
                       ) : (
                         <button
-                          className="leading-relaxed ml-auto mb-10 flex w-20 justify-center rounded-md bg-green-600 px-3 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
+                        type="button" class="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800  rounded-lg text-sm px-5 py-2.5 text-center ml-auto font-semibold"
                           onClick={handleOrder}
                         >
                           <i className="bi bi-cart4 text-sm font-semibold" />
@@ -181,7 +184,7 @@ const Productpopup = ({ isOpen, isOpenx, onClose, product }) => {
                       )
                     ) : (
                       <button
-                        className="leading-relaxed ml-auto mb-10 flex w-20 justify-center rounded-md bg-green-600 px-3 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
+                      type="button" class="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800  rounded-lg text-sm px-5 py-2.5 text-center ml-auto font-semibold"
                         onClick={handleOrders}
                       >
                         <i className="bi bi-cart4 text-sm font-semibold" />
@@ -203,7 +206,7 @@ const Productpopup = ({ isOpen, isOpenx, onClose, product }) => {
         </section>
         <ModalCheck isOpen={isOpene} setIsOpen={setIsOpene} message={message} />
         <div className="flex-center mt-2">
-          <button className='black_btn' onClick={() => onClose()}>ปิดหน้าต่าง</button>
+          
         </div>
 
       </div>

@@ -37,22 +37,22 @@ const Homepage = () => {
     <>
 
       <Fragment>
-        <div className="container body">
-          <div className="sidebar ">
-            <input type="search" onChange={handleSearch} className="sidebar-search" id="" placeholder="ค้นหาสินค้า " />
-            <a onClick={() => setType("เครื่องประดับ")} className="sidebar-items">
+        <div className="flex container ">
+          <div className="sidebars -ml-16 ">
+            <input type="search" onChange={handleSearch} className="sidebar-search font-semibold" id="" placeholder="ค้นหาสินค้า " />
+            <a onClick={() => setType("เครื่องประดับ")} className="sidebar-items font-semibold">
               เครื่องประดับ
             </a>
-            <a href="#" onClick={() => setType("รองเท้า")} className="sidebar-items ">
+            <a  onClick={() => setType("รองเท้า")} className="sidebar-items font-semibold">
               รองเท้า
             </a>
-            <a href="#" onClick={() => setType("ของโบราณ")} className="sidebar-items ">
+            <a  onClick={() => setType("ของโบราณ")} className="sidebar-items font-semibold">
               ของโบราณ
             </a>
-            <a onClick={() => setType("ฟิกเกอร์")} className="sidebar-items">
+            <a onClick={() => setType("ฟิกเกอร์")} className="sidebar-items font-semibold">
               ฟิกเกอร์
             </a>
-            <a onClick={() => setType("")} className="sidebar-items ">
+            <a onClick={() => setType("")} className="sidebar-items font-semibold">
               อื่นๆ
             </a>
 
@@ -74,7 +74,7 @@ const Homepage = () => {
 
 
                   <div key={index}>
-                    <div className="product-items">
+                    <div className="product-items ">
                       <Link
                         onClick={() => {
                           setshow(true);

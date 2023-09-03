@@ -16,7 +16,7 @@ export default function RootLayout({ children }) {
     <SessionProvider>
       <html lang="en">
         <body>
-          <Navbar />
+         <Navbar />
         
           {children}
 

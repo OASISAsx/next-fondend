@@ -32,25 +32,27 @@
   align-items:center;
   font-family: 'Quicksand', sans-serif;
 }
-.header{
+.header {
   width: 100%;
   height: 10vw;
+  background-color: #ffffff; /* สีพื้นหลังของ Header */
 
 }
 
-
- .navbar{
-   
-    width: 90%;
-    height: 60px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: absolute;
-    margin-top: 30px;
-    
+.navbar {
+  width: 100%;
+  height: 70px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  top: 30px;
+  left: 0; /* ทำให้ .navbar ชิดขวา */
+  background-color: #ffffff;
+  box-shadow: 0px 6px 4px rgba(71, 77, 241, 0.1);
 }
+
 
 .shadowavatar{
   
@@ -128,13 +130,15 @@ border: 3px solid #0aa1ff;
   
   
 }
-.sidebar {
-  width: 19%;
+.sidebars {
+  width: 20%;
   padding: 10px;
   display: flex;
   flex-direction: column;
-  border-radius: 12px;
-  border: 5px solid #DFDFDF;
+  position: sticky;
+ 
+ 
+  
 }
 .btn-primary{
   display: block;
@@ -152,11 +156,11 @@ border: 3px solid #0aa1ff;
 .product {
   width: 80%;
   padding: 10px;
-  height: 100%;
+  height: 80%;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   border-radius: 22px;
-  grid-gap: 1px;
+  grid-gap: 10px;
   
   
 }
@@ -172,21 +176,23 @@ border: 3px solid #0aa1ff;
   margin-bottom: 20px;
 }
 .sidebar-search:focus {
-  border: 2px solid #e61b36;
+  border: 2px solid #0aa1ff;
 }
 .sidebar-items {
-  background: #f2f2f2;
-  margin-bottom: 10px;
+  background: #DFDFDF;
+  margin-bottom: 20px;
   padding: 10px;
+  width: 100%;
   border-radius: 5px;
   border: 1px solid #e5e5e5;
   color: #000;
   transition: 300ms;
   font-size: 1.2vw;
+  justify-items: left;
 }
 .sidebar-items:hover {
-  background: #27c4f0;
-  color: #fff;
+  background: #cbd5e0;
+  color: #000;
 }
   
 .product-items {
@@ -331,6 +337,9 @@ footer {
   width: 240px;
   background-color: #f3f4f6;
   padding: 20px;
+  position: sticky;
+  top: 0; /* ค่า top ระบุว่า sidebar จะเลื่อนเมื่อหน้าเว็บอยู่ที่จุดบนสุดของ viewport */
+  
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
 }
@@ -385,6 +394,52 @@ footer {
   margin-top: 10px;
   padding-left: 20px;
   border-left: 2px solid #cbd5e0;
+}
+.slides {
+  width: 70%; /* กำหนดความกว้างให้เต็มหน้าจอ */
+  height: 300px; /* กำหนดความสูงตามที่คุณต้องการ */
+  position: relative; /* กำหนดให้เป็นตำแหน่งสำหรับภาพสไลด์ */
+  overflow: hidden; /* กำหนดให้ภาพสไลด์ที่เกินขอบจอไม่แสดง */
+  border-radius: 10px;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  animation: slide-show 12s infinite;
+  transition: opacity 0.3s ease-in-out; /* เพิ่มการเปลี่ยนแปลงความโปร่งใสเพื่อลดความเร็วของอนิเมชัน */
+  
+}
+
+.slide--2 {
+  animation-delay: 4s;
+}
+
+.slide--3 {
+  animation-delay: 8s;
+}
+
+.slide_image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@keyframes slide-show {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  20%, 30% {
+    opacity: 1;
+    transform: scale(1.05); /* เพิ่มการขยายขนาดของภาพเล็กน้อย */
+  }
+  50% {
+    opacity: 0;
+  }
 }
 
 .app {

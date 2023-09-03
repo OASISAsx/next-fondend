@@ -51,6 +51,21 @@ const Homepagex = ({ }) => {
     <>
 
 <Fragment>
+  <div className="slides items-center -mt-10">
+            <div className="slide slide--1">
+              <img src="https://png.pngtree.com/thumb_back/fh260/background/20230611/pngtree-blue-and-dark-colored-wave-graphics-on-black-background-image_2925150.png" className="slide_image" />
+            
+            </div>
+            <div className="slide slide--2">
+              <img src="https://i.pinimg.com/originals/ab/0d/9e/ab0d9e104ce164f1e9c38c96cb01d5b7.jpg" className="slide_image" />
+            
+            </div>
+            <div className="slide slide--3">
+              <img src="https://i.pinimg.com/originals/e2/ff/6a/e2ff6a8f794881a02c239a732edf5c98.jpg" className="slide_image" />
+            
+            </div>
+          </div>
+          <br></br>
         <form className="w-[50%]">
           <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white " >Search</label>
           <div className="relative">
@@ -72,7 +87,8 @@ const Homepagex = ({ }) => {
 </button>
           </div>
         </form>
-        <p className="justify-items-start mt-7 ml-10 product text-xl"> สินค้านิยม</p>
+          
+        <p className="justify-items-start mt-7 ml-52 product text-xl"> สินค้าทั้งหมด</p>
         <div className=" container  justify-center  ">
 
           <div className="product ml-9 mb-20">

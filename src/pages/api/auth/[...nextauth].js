@@ -1,6 +1,7 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import FacebookProvider from "next-auth/providers/facebook";
+
 export default NextAuth({
   providers: [
     CredentialsProvider({
@@ -26,15 +27,13 @@ export default NextAuth({
           throw new Error("Username-Or-Password-Is-Incorrect")
         }
 
-        if (data.user.recordstatus === false) {
+        if (data.user.status === false) {
           throw new Error("Username-Is-Baned")
         }
 
         if (data) {
-          return data.user;
+          return data;
         }
-
-
       },
     }),
     FacebookProvider({
@@ -44,21 +43,21 @@ export default NextAuth({
   ],
   pages: {
     signIn: "/login",
+    error: "/login-error"
   },
   callbacks: {
     async jwt({ token, user }) {
       // Persist the OAuth access_token to the token right after signin
       if (user) {
         token.accessToken = user.accessToken
-        token.user = user
-        token.roleId = user.roleId
-        token.id =user.userid
+        token.user = user.user
+        token.roleid = user.user.roleid
       }
       return token
     },
     async session({ session, token }) {
+      // console.log("🚀 ~ file: [...nextauth].js:59 ~ session ~ token:", token)
       session.user = token.user
-      session.user.id = token.id
       return session
     },
 

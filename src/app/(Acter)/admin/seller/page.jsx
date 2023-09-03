@@ -109,25 +109,7 @@ const Seller = (userid) => {
     return (
         <Fragment>
             <section>
-                {/* <div className="stats shadow flex-center">
-                    <div className="stat place-items-center">
-                        <div className="stat-title">จำนวนผู้ใช้ทั้งหมด</div>
-                        <div className="stat-value">{item.length}</div>
-                        <div className="stat-desc">เวลาอ้างอิง: {currentTime.toLocaleTimeString()}</div>
-                    </div>
-
-                    <div className="stat place-items-center">
-                        <div className="stat-title">จำนวนพนักงานที่รออนุมัติ</div>
-                        <div className="stat-value text-secondary">{accept}</div>
-                        <div className="stat-desc text-secondary">รายการ</div>
-                    </div>
-
-                    <div className="stat place-items-center">
-                        <div className="stat-title">จำนวนพนักงานที่อนุมัติแล้ว</div>
-                        <div className="stat-value">{accepted}</div>
-                        <div className="stat-desc">รายการ</div>
-                    </div>
-                </div> */}
+               
                 <div className="max-w-full mx-4 py-6 sm:mx-auto sm:px-6 -mt-16 lg:px-8">
   <div className="sm:flex sm:space-x-4">
     <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow transform transition-all mb-4 w-full sm:w-1/3 sm:my-8">

@@ -200,6 +200,7 @@ const CheckSilp = ({ isOpen, onClose, payid, details }) => {
                               onChange={(e) => handleChange(e)}
                               className="block w-full rounded-md border-0 py-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                           />
+                          <button className='black_btn mr-4' onClick={() => onClose()}>ปิดหน้าต่าง</button>
                       </div>
                   </div>
 
@@ -276,7 +277,8 @@ const CheckSilp = ({ isOpen, onClose, payid, details }) => {
       </div>
 
   
- 
+ <div className='flex-center mt-3'>
+  <button type="button" className="black_btn text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-semibold rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2" onClick={() => onClose()}>ปิดหน้าต่าง</button></div>
   </div>
 </div>
 

@@ -113,7 +113,7 @@ const PaymentModal = ({ isOpen, onClose, detail, userid }) => {
     
     return (
         <div className='fixed top-0 left-0 w-screen h-screen bg-black/50 bg-opacity-25 flex justify-center items-center backdrop-blur-sm'>
-            <div className="w-[60%] h-[80%]  rounded-lg flex flex-col">
+            <div className="w-[60%] h-[100%]  rounded-lg flex flex-col">
                 <button className='px-5 py-2.5 mr-5 justify-center items-center place-self-end text-white' onClick={() => onClose()}>ปิด X</button>
                 <div className="bg-white p-2 rounded-lg">
                     {detail.paymentstatus === "กำลังจัดส่ง" ?
@@ -138,10 +138,22 @@ const PaymentModal = ({ isOpen, onClose, detail, userid }) => {
                             <span className="text-gray-800 text-lg font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">รหัสผู้ซื้อ: {detail.userid}</span>
                             <span className="text-gray-800 text-lg font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">ประเภทสินค้า: {detail.producttype}</span>
                             <span className="text-gray-800 text-lg font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">สถานะการชำระ: {detail.paymentstatus}</span>
-                            <span className="text-gray-800 text-lg font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">ชื่อ: {user.fristnameuser }  {user.lastnameuser}</span>
-                            <span className="text-gray-800 text-lg font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">ที่อยู่: {user.useraddress}</span>
-                            <span className="text-gray-800 text-lg font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">จังหวัด: {user.province}</span>
-                            <span className="text-gray-800 text-lg font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">เบอร์โทร: {user.userphone}</span>
+                            <br></br>
+                            <div className="grid md:grid-cols-1 md:gap-6  ">
+                                <p>ที่อยู่</p>
+                <div className="block p-2  min-w-fit  text-sm text-gray-900 bg-gray-50 rounded-xl border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                  <span className="text-gray-800 min-w-fit text-lg font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">ชื่อผู้ซื้อ:  {user.fristnameuser}</span>
+                  <span className="text-gray-800 text-lg font-medium ml-2 mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300 ">{user.lastnameuser}</span>
+                  <br></br>
+                  <span className="text-gray-800 text-lg font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300  ">ที่อยู่:  {user.useraddress} {user.userzibId} {user.provinceid}  </span>
+                  <br></br>
+                  <span className="text-gray-800 text-lg font-medium ml-2 mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300 ">โทร.{user.userphone}</span>
+
+
+                </div>
+                <br></br>
+                </div>
+        
                             <span className="text-gray-800 text-lg font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">วันที่ซื้อ: {moment(detail.createddate).locale('th').format('lll')}</span>
                         </div>
                     </div>
